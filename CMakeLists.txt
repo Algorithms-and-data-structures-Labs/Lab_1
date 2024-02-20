@@ -8,6 +8,7 @@ enable_testing()
 
 include_directories("include")
 
+add_subdirectory(3rdparty)
 add_subdirectory(app)
 add_subdirectory(include)
 add_subdirectory(src)
