@@ -1,0 +1,32 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: DoozyX/clang-format-lint-action@v0.15
+      with:
+        source: '.'
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Cache CMake build
+      uses: actions/cache@v4
+      with:
+        path: |
+          build
+        key: ${{ runner.os }}-cmake-${{ hashFiles('CMakeLists.txt') }}
+    - name: Build
+      run: |
+        cmake -S . -B build
+        cmake --build build
+    - name: Test
+      run: |
+        cd build
+        ctest --output-on-failure
