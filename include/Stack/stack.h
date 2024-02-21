@@ -6,11 +6,11 @@
 using namespace std;
 template <class T>
 class TStack {
-protected:
+ protected:
   int size;
   int top;
   T* mas;
-public:
+ public:
   TStack(int n = 1);
   TStack(TStack<T>& stack);
   ~TStack();
@@ -23,12 +23,12 @@ public:
   bool IsEmpty();
   void printstack();
   TStack& operator=(const TStack<T>& stack);
-  friend ostream& operator<< (ostream& ostr, const TStack<T>& A);
-  friend istream& operator>> (istream& istr, TStack<T>& A);
+  friend ostream& operator<<(ostream& ostr, const TStack<T>& A);
+  friend istream& operator>>(istream& istr, TStack<T>& A);
 };
 
 template <class T>
-ostream& operator<< (ostream& ostr, const TStack<T>& A) {
+ostream& operator<<(ostream& ostr, const TStack<T>& A) {
   for (int i = 0; i < A.top; i++) {
     ostr << A.mas[i] << "\n";
     ostr << endl;
@@ -37,7 +37,7 @@ ostream& operator<< (ostream& ostr, const TStack<T>& A) {
 }
 
 template <class T>
-istream& operator>> (istream& istr, TStack<T>& A) {
+istream& operator>>(istream& istr, TStack<T>& A) {
   for (int i = 0; i < A.size; i++) {
     istr >> A.mas[i];
   }
@@ -60,17 +60,16 @@ T TStack<T>::Get() {
 
 template <class T>
 TStack<T>::TStack(int n ) {
-  if (n < 0) throw "Error size";
-  else 
-    if (n == 0) {
-      size = 0;
-      top = 0;
-    }
-    else {
-      size = n;
-      mas = new T[n];
-      top = 0;
-    }
+  if (n < 0) 
+      throw "Error size";
+  else if (n == 0) {
+    size = 0;
+    top = 0;
+  } else {
+    size = n;
+    mas = new T[n];
+    top = 0;
+  }
 }
 
 template <class T>

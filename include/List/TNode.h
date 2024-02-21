@@ -1,6 +1,6 @@
 #pragma once
 
-template<class T>
+template <class T>
 struct TNode {
   T value;
   TNode* pNext;

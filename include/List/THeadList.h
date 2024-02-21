@@ -3,11 +3,11 @@
 
 using namespace std;
 
-template<class T>
-class THeadList : public TList<T>
-{
+template <class T>
+class THeadList : public TList<T> {
  protected:
   TNode<T>* pHead;
+
  public:
   THeadList();
   ~THeadList();
@@ -16,7 +16,7 @@ class THeadList : public TList<T>
   void DeleteFirst();
 };
 
-template<class T>
+template <class T>
 THeadList<T>::THeadList() {
   pHead = new TNode<T>{};
   this->pFirst = pHead->pNext;
@@ -26,12 +26,12 @@ THeadList<T>::THeadList() {
   this->length = 0;
 }
 
-template<class T>
+template <class T>
 THeadList<T>::~THeadList() {}
 
 template <class T>
 void THeadList<T>::InsertFirst(T item) {
-  TNode<T>* newNode = new TNode<T>{ item, nullptr };
+  TNode<T>* newNode = new TNode<T>{item, nullptr};
   newNode->pNext = this->pFirst;
   this->pFirst = newNode;
   this->length++;
@@ -39,7 +39,7 @@ void THeadList<T>::InsertFirst(T item) {
 
 template <class T>
 void THeadList<T>::InsertLast(T item) {
-  TNode<T>* newNode = new TNode<T>{ item, nullptr };
+  TNode<T>* newNode = new TNode<T>{item, nullptr};
   this->pLast = newNode;
   this->length++;
 }
