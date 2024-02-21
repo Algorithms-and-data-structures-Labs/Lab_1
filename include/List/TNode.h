@@ -1,8 +1,7 @@
 #pragma once
 
 template<class T>
-struct TNode
-{
+struct TNode {
   T value;
   TNode* pNext;
 };

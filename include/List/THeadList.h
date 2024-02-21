@@ -17,8 +17,7 @@ class THeadList : public TList<T>
 };
 
 template<class T>
-THeadList<T>::THeadList()
-{
+THeadList<T>::THeadList() {
   pHead = new TNode<T>{};
   this->pFirst = pHead->pNext;
   this->pStop = new TNode<T>{};
@@ -28,13 +27,10 @@ THeadList<T>::THeadList()
 }
 
 template<class T>
-THeadList<T>::~THeadList()
-{
-}
+THeadList<T>::~THeadList() {}
 
 template <class T>
-void THeadList<T>::InsertFirst(T item)
-{
+void THeadList<T>::InsertFirst(T item) {
   TNode<T>* newNode = new TNode<T>{ item, nullptr };
   newNode->pNext = this->pFirst;
   this->pFirst = newNode;
@@ -42,16 +38,14 @@ void THeadList<T>::InsertFirst(T item)
 }
 
 template <class T>
-void THeadList<T>::InsertLast(T item)
-{
+void THeadList<T>::InsertLast(T item) {
   TNode<T>* newNode = new TNode<T>{ item, nullptr };
   this->pLast = newNode;
   this->length++;
 }
 
 template <class T>
-void THeadList<T>::DeleteFirst()
-{
+void THeadList<T>::DeleteFirst() {
   if (this->IsEmpty()) {
     throw "List is empty, nothing to delete.";
   }

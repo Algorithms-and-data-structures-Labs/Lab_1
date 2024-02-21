@@ -1,11 +1,12 @@
 #pragma once
-#include "List/TNode.h"
 #include <iostream>
+
+#include "List/TNode.h"
+
 using namespace std;
 
 template<class T>
-class TList
-{
+class TList {
  protected:
   TNode<T>* pFirst;
   TNode<T>* pCurrent;
@@ -14,7 +15,7 @@ class TList
   TNode<T>* pStop;
   int length;
 
-public:
+ public:
   TList();
   ~TList();
   int GetLength() { return length; }
@@ -32,8 +33,7 @@ public:
   void SetCurrentItem(T item) { pCurrent->value = item; }
 };
 template <class T>
-TList<T>::TList()
-{
+TList<T>::TList() {
   pFirst=nullptr; 
   pCurrent = nullptr;
   pPrevious = nullptr;
@@ -43,21 +43,16 @@ TList<T>::TList()
 }
 
 template <class T>
-TList<T>::~TList()
-{
-}
+TList<T>::~TList() {}
 
 template <class T>
-bool TList<T>::IsEmpty()
-{
-  if(length == 0)
-  return true;
+bool TList<T>::IsEmpty() {
+  if(length == 0) return true;
   return false;
 }
 
 template <class T>
-void TList<T>::InsertFirst(T item)
-{
+void TList<T>::InsertFirst(T item) {
   TNode<T>* newNode = new TNode<T>;
   newNode->value = item;
   newNode->pNext = pFirst;
@@ -71,8 +66,7 @@ void TList<T>::InsertFirst(T item)
 }
 
 template <class T>
-void TList<T>::InsertLast(T item)
-{
+void TList<T>::InsertLast(T item) {
   TNode<T>* newNode = new TNode<T>;
   newNode->value = item;
   newNode->pNext = nullptr;
@@ -89,8 +83,7 @@ void TList<T>::InsertLast(T item)
 }
 
 template <class T>
-void TList<T>::InsertPrevCurrent(T item)
-{
+void TList<T>::InsertPrevCurrent(T item) {
   TNode<T>* newNode = new TNode<T>;
   newNode->value = item;
   if (pCurrent == pFirst) {
@@ -105,8 +98,7 @@ void TList<T>::InsertPrevCurrent(T item)
 }
 
 template <class T>
-void TList<T>::InsertNextCurrent(T item)
-{
+void TList<T>::InsertNextCurrent(T item) {
   TNode<T>* newNode = new TNode<T>;
   newNode->value = item;
   if (pCurrent == pLast) {
@@ -122,8 +114,7 @@ void TList<T>::InsertNextCurrent(T item)
 }
 
 template <class T>
-void TList<T>::DeleteFirst()
-{
+void TList<T>::DeleteFirst() {
   if (pFirst != nullptr) {
 	TNode<T>* temp = pFirst;
 	pFirst = pFirst->pNext;
@@ -137,8 +128,7 @@ void TList<T>::DeleteFirst()
 }
 
 template <class T>
-void TList<T>::DeleteCurrent()
-{
+void TList<T>::DeleteCurrent() {
   if (pCurrent != nullptr && pFirst != nullptr) {
 	if (pCurrent == pFirst) {
       DeleteFirst();
@@ -158,31 +148,26 @@ void TList<T>::DeleteCurrent()
 }
 
 template <class T>
-T TList<T>::GetCurrentItem()
-{
-  if (length == 0)throw"len=0";
+T TList<T>::GetCurrentItem() {
+  if (length == 0) throw"len=0";
   if (pCurrent == nullptr) return T();
   return pCurrent->value;
 }
 
 template <class T>
-void TList<T>::Reset()
-{
+void TList<T>::Reset() {
   pCurrent = pFirst;
   pPrevious = nullptr;
 }
 
 template <class T>
-void TList<T>::GoNext()
-{
+void TList<T>::GoNext() {
   pPrevious = pCurrent;
   pCurrent = pCurrent->pNext;
 }
 
 template <class T>
-bool TList<T>::IsEnd()
-{
-  if(pCurrent->pNext==pStop)
-  return true;
+bool TList<T>::IsEnd() {
+  if(pCurrent->pNext==pStop) return true;
   return false;
 }
