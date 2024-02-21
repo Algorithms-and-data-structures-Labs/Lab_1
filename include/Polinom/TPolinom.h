@@ -88,7 +88,7 @@ TPolinom::TPolinom(vector<int> a) {
           Reset();
           GoNext();
           DeleteCurrent();
-	    } else {
+	  } else {
         mon.SetCoef(mon.GetCoef() + a[i]);
         DeleteCurrent();
         InsertPrevCurrent(mon);
@@ -245,8 +245,8 @@ string TPolinom::ToString() {
     result += std::to_string(((ind % 100) - (ind % 10)) / 10);
     result += "Z";
     result += std::to_string(ind % 10);
-    if(i != sz - 1) result += " + ";
-    if(i < sz - 1) GoNext();
+    if (i != sz - 1) result += " + ";
+    if (i < sz - 1) GoNext();
   }
   Reset();
   return result;
