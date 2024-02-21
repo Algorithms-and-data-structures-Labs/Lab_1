@@ -1,3 +1,3 @@
-add_subdirectory(list)
-add_subdirectory(polinom)
-add_subdirectory(stack)
+add_subdirectory(List)
+add_subdirectory(Polinom)
+add_subdirectory(Stack)
