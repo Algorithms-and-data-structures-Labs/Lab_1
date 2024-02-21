@@ -27,7 +27,7 @@ struct TMonom {
     coef = other.coef;
     index = other.index;
   }
-  bool operator>(const TMonom& other) { 
+  bool operator>(const TMonom& other) {
     if (index < other.index) return false;
     if (coef < other.coef) return false;
     return true;
@@ -37,5 +37,5 @@ struct TMonom {
     if (coef > other.coef) return false;
     return true;
   }
-  int checkMonom() { return coef * 1000 + index;}
+  int checkMonom() { return coef * 1000 + index; }
 };

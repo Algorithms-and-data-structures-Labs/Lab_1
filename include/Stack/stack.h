@@ -10,6 +10,7 @@ class TStack {
   int size;
   int top;
   T* mas;
+
  public:
   TStack(int n = 1);
   TStack(TStack<T>& stack);
@@ -59,7 +60,7 @@ T TStack<T>::Get() {
 }
 
 template <class T>
-TStack<T>::TStack(int n ) {
+TStack<T>::TStack(int n) {
   if (n < 0) 
     throw "Error size";
   else if (n == 0) {

@@ -70,13 +70,15 @@ TPolinom::TPolinom(vector<int> a) {
       sz1++;
     } else {
       while (ind1 < ind) {
-      if (i1 < sz1) {
-        GoNext();
-        i1++;
-        mon = GetCurrentItem();
-        ind = mon.checkMonom() % 1000;
-      } else {
-        InsertLast(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3])); sz1++; return;
+        if (i1 < sz1) {
+          GoNext();
+          i1++;
+          mon = GetCurrentItem();
+          ind = mon.checkMonom() % 1000;
+        } else {
+          InsertLast(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
+          sz1++;
+          return;
        }
     }
     if (ind == ind1) {
@@ -92,12 +94,12 @@ TPolinom::TPolinom(vector<int> a) {
         DeleteCurrent();
         InsertPrevCurrent(mon);
       }
+    } else {
+        InsertPrevCurrent(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
+        sz1++;
+      }
     }
-    else {
-      InsertPrevCurrent(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3])); sz1++;
-    }
-  }
-  i1 = 1;
+    i1 = 1;
   }
   Reset();
 }
@@ -146,17 +148,17 @@ void TPolinom::AddMonom(TMonom m) {
         return;
       }
     }
-    if (ind  == ind1) {
+    if (ind == ind1) {
       if (mon.GetCoef() + m.GetCoef() != 0) {
         mon.SetCoef(mon.GetCoef() + m.GetCoef());
         DeleteCurrent();
         InsertPrevCurrent(mon);
+      } else { 
+        DeleteCurrent();
       }
-      else { DeleteCurrent(); }
+    } else {
+      InsertPrevCurrent(m);
     }
-  else {
-    InsertPrevCurrent(m);
-  }
   }
   Reset();
 }
@@ -190,7 +192,7 @@ TPolinom TPolinom::operator*(double coef) {
   result.Reset();
   TMonom mon;
   int sz = result.GetLength();
-  for (int i =0; i < sz; i++) {
+  for (int i = 0; i < sz; i++) {
     mon = result.GetCurrentItem();
     mon.SetCoef(mon.GetCoef() * coef);
     result.DeleteCurrent();
@@ -211,14 +213,14 @@ bool TPolinom::operator==(TPolinom& other) {
   }
   Reset();
   other.Reset();
-  for (int i = 0; i < sz;i++) {
-    TMonom a,b;
+  for (int i = 0; i < sz; i++) {
+    TMonom a, b;
     a = other.GetCurrentItem();
     b = GetCurrentItem();
     GoNext();
     other.GoNext();
     if (a == b) {
-    } else{
+    } else {
     return false;
     }
   }
@@ -244,10 +246,8 @@ string TPolinom::ToString() {
     result += std::to_string(((ind % 100) - (ind % 10)) / 10);
     result += "Z";
     result += std::to_string(ind % 10);
-    if(i!=sz-1)
-    result += " + ";
-    if(i<sz-1)
-    GoNext();
+    if(i!=sz-1) result += " + ";
+    if(i<sz-1) GoNext();
   }
   Reset();
   return result;
