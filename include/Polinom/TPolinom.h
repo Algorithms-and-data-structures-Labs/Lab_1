@@ -26,7 +26,7 @@ class TPolinom : public THeadList<TMonom> {
   string ToString();
 };
 
-TPolinom::TPolinom() :THeadList<TMonom>::THeadList() { length = 0; }
+TPolinom::TPolinom() : THeadList<TMonom>::THeadList() { length = 0; }
 
 TPolinom::TPolinom(TPolinom& other) {
   int sz = other.GetLength();
@@ -65,8 +65,10 @@ TPolinom::TPolinom(vector<int> a) {
     TMonom first;
     first = GetCurrentItem();
     int ind = first.checkMonom() % 1000;
-    if (ind1 > ind) { InsertFirst(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3])); sz1++; }
-    else {
+    if (ind1 > ind) {
+      InsertFirst(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
+      sz1++;
+    } else {
       while (ind1 < ind) {
       if (i1 < sz1) {
         GoNext();
@@ -74,26 +76,26 @@ TPolinom::TPolinom(vector<int> a) {
         mon = GetCurrentItem();
         ind = mon.checkMonom() % 1000;
       } else {
-	  InsertLast(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3])); sz1++; return;
-	  }
-	}
-	if (ind == ind1) {
-	  if (i1 == 1) {
-    	mon.SetCoef(mon.GetCoef() + a[i]);
-		InsertFirst(mon);
-		Reset();
-		GoNext();
-		DeleteCurrent();
+        InsertLast(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3])); sz1++; return;
+       }
+    }
+    if (ind == ind1) {
+      if (i1 == 1) {
+        mon.SetCoef(mon.GetCoef() + a[i]);
+        InsertFirst(mon);
+        Reset();
+        GoNext();
+        DeleteCurrent();
 	  }
       else {
-		mon.SetCoef(mon.GetCoef() + a[i]);
-		DeleteCurrent();
-		InsertPrevCurrent(mon);
-	  }
-	}
-	else {
+        mon.SetCoef(mon.GetCoef() + a[i]);
+        DeleteCurrent();
+        InsertPrevCurrent(mon);
+      }
+    }
+    else {
       InsertPrevCurrent(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3])); sz1++;
-	}
+    }
   }
   i1 = 1;
   }
@@ -103,7 +105,7 @@ TPolinom::TPolinom(vector<int> a) {
 TPolinom& TPolinom::operator=(TPolinom& other) {
   int sz = GetLength();
   Reset();
-  for (int i = 0; i < sz-1; i++) {
+  for (int i = 0; i < sz - 1; i++) {
     DeleteFirst();
   }
   Reset();
@@ -131,17 +133,17 @@ void TPolinom::AddMonom(TMonom m) {
   int ind = mon.checkMonom() % 1000;
   int ind1 = m.checkMonom() % 1000;
   if (ind1 > ind)
-	InsertFirst(m);
+    InsertFirst(m);
   else {
     while (ind1 < ind) {
-      if (i<sz) {
+      if (i < sz) {
         GoNext();
         i++;
         mon = GetCurrentItem();
         ind = mon.checkMonom() % 1000;
-      }
-      else {
-        InsertLast(m); return;
+      } else {
+        InsertLast(m);
+        return;
       }
     }
     if (ind  == ind1) {
@@ -175,10 +177,10 @@ TPolinom TPolinom::AddPolinom(TPolinom& other) {
   int sz = other.GetLength();
   other.Reset();
   for (int i = 0; i < sz; i++) {
-  	TMonom a;
-	a = other.GetCurrentItem();
-	res.AddMonom(a);
-	other.GoNext();
+    TMonom a;
+    a = other.GetCurrentItem();
+    res.AddMonom(a);
+    other.GoNext();
   }
   return res;
 }
@@ -189,10 +191,10 @@ TPolinom TPolinom::operator*(double coef) {
   TMonom mon;
   int sz = result.GetLength();
   for (int i =0; i < sz; i++) {
-	mon = result.GetCurrentItem();
-	mon.SetCoef(mon.GetCoef() * coef);
-	result.DeleteCurrent();
-	result.InsertPrevCurrent(mon);
+    mon = result.GetCurrentItem();
+    mon.SetCoef(mon.GetCoef() * coef);
+    result.DeleteCurrent();
+    result.InsertPrevCurrent(mon);
   }
   return result;
 }
@@ -205,7 +207,7 @@ TPolinom TPolinom::operator*(TPolinom& other) {
 bool TPolinom::operator==(TPolinom& other) {
   int sz = other.GetLength();
   if (this->GetLength() != other.GetLength()) {
-  	return false;
+    return false;
   }
   Reset();
   other.Reset();
@@ -226,20 +228,20 @@ bool TPolinom::operator==(TPolinom& other) {
 
 string TPolinom::ToString() {
   string result;
-  int sz =GetLength();
+  int sz = GetLength();
   Reset();
   for (int i = 0; i < sz; i++) {
     TMonom a;
     a = GetCurrentItem();
-    double A=a.GetCoef();
+    double A = a.GetCoef();
     std::ostringstream oss;
     oss << std::setprecision(5) << A;
-    int ind= a.GetIndex();
+    int ind = a.GetIndex();
     result += oss.str();
     result += "X";
-    result += std::to_string((ind-ind%100)/100);
+    result += std::to_string((ind - ind % 100) / 100);
     result += "Y";
-    result += std::to_string(((ind % 100)- (ind % 10))/10);
+    result += std::to_string(((ind % 100) - (ind % 10)) / 10);
     result += "Z";
     result += std::to_string(ind % 10);
     if(i!=sz-1)
