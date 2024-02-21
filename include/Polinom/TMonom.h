@@ -2,13 +2,13 @@
 
 struct TMonom
 {
-	double coef;
-	int index;
-
-	TMonom() {
-		coef = 0;
-		index = 0;
-	}
+  double coef;
+  int index;
+  
+  TMonom() {
+  coef = 0;
+  index = 0;
+  }
 
 	TMonom(double coef1, int degX, int degY, int degZ) {
 		coef = coef1;
