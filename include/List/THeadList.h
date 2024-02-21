@@ -1,19 +1,19 @@
 #pragma once
 #include "TList.h"
-using namespace std;
 
+using namespace std;
 
 template<class T>
 class THeadList : public TList<T>
 {
 protected:
-	TNode<T>* pHead;  // заголовок, pFirst - звено за pHead
+	TNode<T>* pHead;
 public:
 	THeadList();
 	~THeadList();
-	void InsertFirst(T item); // вставка звеньев после заголовка
+	void InsertFirst(T item);
 	void InsertLast(T item);
-	void DeleteFirst(); // удалить первое звено
+	void DeleteFirst();
 };
 
 template<class T>

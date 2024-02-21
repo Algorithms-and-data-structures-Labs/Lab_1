@@ -7,35 +7,27 @@ template<class T>
 class TList
 {
 protected:
-	TNode<T>* pFirst; // первое звено
-	TNode<T>* pCurrent; // текущее звено
-	TNode<T>* pPrevious; // звено перед текущим
-	TNode<T>* pLast; // последнее звено
-	TNode<T>* pStop; // значение указателя, означающего конец списка
-	int length; // количество звеньев в списке
+	TNode<T>* pFirst;
+	TNode<T>* pCurrent;
+	TNode<T>* pPrevious;
+	TNode<T>* pLast;
+	TNode<T>* pStop;
+	int length;
 
 public:
-
-	TList();
+    TList();
 	~TList();
 	int GetLength() { return length; }
-	bool IsEmpty(); // список пуст ?
-	// вставка звеньев
-	void InsertFirst(T item); // перед первым
-	void InsertPrevCurrent(T item); // перед текущим 
-	void InsertNextCurrent(T item); // после текущего
-	void InsertLast(T item);  // вставить последним 
-
-	// удаление звеньев
-	void DeleteFirst(); // удалить первое звено 
-	void DeleteCurrent(); // удалить текущее звено
-
-	void GoNext(); // сдвиг вправо текущего звена
-	// (=1 после применения GoNext для последнего звена списка)
-
-	void Reset(); // установить на начало списка
-	bool IsEnd();  // список завершен ?
-
+	bool IsEmpty();
+	void InsertFirst(T item);
+	void InsertPrevCurrent(T item);
+	void InsertNextCurrent(T item);
+	void InsertLast(T item);
+	void DeleteFirst();
+	void DeleteCurrent();
+	void GoNext();
+	void Reset();
+	bool IsEnd();
 	T GetCurrentItem();
 	void SetCurrentItem(T item) { pCurrent->value = item; }
 };

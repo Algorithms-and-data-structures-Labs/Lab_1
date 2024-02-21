@@ -21,8 +21,6 @@ public:
     int GetSize();
     int GetTop();
 
-    //операторы вводы и выводы
-
     bool IsFull();
     bool IsEmpty();
     void printstack();
@@ -31,6 +29,7 @@ public:
     friend ostream& operator<< (ostream& ostr, const TStack<T>& A);
     friend istream& operator>> (istream& istr, TStack<T>& A);
 };
+
 template <class T>
 ostream& operator<< (ostream& ostr, const TStack<T>& A) {
     for (int i = 0; i < A.top; i++) {
@@ -39,6 +38,7 @@ ostream& operator<< (ostream& ostr, const TStack<T>& A) {
     }
     return ostr;
 }
+
 template <class T>
 istream& operator>> (istream& istr, TStack<T>& A) {
     for (int i = 0; i < A.size; i++) {
@@ -53,12 +53,14 @@ void TStack<T>::Push(T a) {
     this->mas[top] = a;
     top++;
 }
+
 template <class T>
 T TStack<T>::Get() {
     if (IsEmpty()) throw "StackEmpty";
     top--;
     return mas[top];
 }
+
 template <class T>
 TStack<T>::TStack(int n ) {
     if (n < 0)
@@ -72,10 +74,12 @@ TStack<T>::TStack(int n ) {
         top = 0;
     }
 }
+
 template <class T>
 void TStack<T>::printstack() {
     for (int i = top - 1; i >= 0; i--) cout << " " << mas[i];
 }
+
 template <class T>
 TStack<T>::TStack(TStack<T>& stack) {
     this.size = stack.size;
@@ -83,6 +87,7 @@ TStack<T>::TStack(TStack<T>& stack) {
     for (int i = 0; i < this.size i++) mas[i] = stack.mas[i];
     this->top = stack.top;
 }
+
 template <class T>
 TStack<T>::~TStack() {
     delete[] mas;
@@ -96,7 +101,6 @@ bool TStack<T>::IsEmpty() {
     return (top == 0);
 }
 
-// проверка на пустоту
 template <class T>
 bool TStack<T>::IsFull() {
     return (top >= size);
@@ -111,10 +115,12 @@ template <class T>
 int TStack<T>::GetTop() {
     return top;
 }
+
 template <class T>
 T TStack<T>::TopView() {
     return mas[top];
 }
+
 template <class T>
 TStack<T>& TStack<T>::operator=(const TStack<T>& a) {
     if (this != &a) {
@@ -126,20 +132,3 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& a) {
     }
     return *this;
 }
-
-//template <class T1>
-//ostream& operator<< (ostream& ostr, const Vector<T1> &A) {
-//  for (int i = 0; i < A.length; i++) {
-//    ostr << A.x[i] << endl;
-//  }
-//  return ostr;
-//}
-//
-//template <class T1>
-//istream& operator >> (istream& istr, Vector<T1> &A) {
-//  for (int i = 0; i < A.length; i++) {
-//    istr >> A.x[i];
-//  }
-//  return istr;
-//}
-

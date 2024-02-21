@@ -7,9 +7,7 @@
 #include <sstream>
 #include <iomanip>
 
-const int nonDisplayedZeros = 4; // Количество неотображаемых нулей при выводе коэффициента полинома
-								 // Кол-во символов после запятой = 6 - nonDisplayedZeros
-
+const int nonDisplayedZeros = 4;
 
 class TPolinom : public THeadList<TMonom>
 {
@@ -17,17 +15,15 @@ public:
 	TPolinom();
 	TPolinom(TPolinom& other);
 	TPolinom(vector<int> a);
-	TPolinom& operator=(TPolinom& other); // присваивание
-	TPolinom& operator+(TPolinom& q); // сложение полиномов
-
-	// дополнительно можно реализовать:
-	void AddMonom(TMonom newMonom); // добавление монома
-	TPolinom MultMonom(TMonom monom); // умножение мономов
-	TPolinom AddPolinom(TPolinom& other); // добавление полинома
-	TPolinom operator*(double coef); // умножение полинома на число
-	TPolinom operator* (TPolinom& other); // умножение полиномов
-	bool operator==(TPolinom& other); // сравнение полиномов на равенство
-	string ToString(); // перевод в строку
+	TPolinom& operator=(TPolinom& other);
+	TPolinom& operator+(TPolinom& q);
+	void AddMonom(TMonom newMonom);
+	TPolinom MultMonom(TMonom monom);
+	TPolinom AddPolinom(TPolinom& other);
+	TPolinom operator*(double coef);
+	TPolinom operator* (TPolinom& other);
+	bool operator==(TPolinom& other);
+	string ToString();
 };
 
 TPolinom::TPolinom() :THeadList<TMonom>::THeadList()
@@ -35,7 +31,7 @@ TPolinom::TPolinom() :THeadList<TMonom>::THeadList()
 	length = 0;
 }
 
-TPolinom::TPolinom(TPolinom& other)// сделано
+TPolinom::TPolinom(TPolinom& other)
 {   int sz = other.GetLength();
 	other.Reset();
     TMonom start;
@@ -55,7 +51,7 @@ TPolinom::TPolinom(TPolinom& other)// сделано
 	pStop = nullptr;
 }
 
-TPolinom::TPolinom(vector<int> a) // сделано
+TPolinom::TPolinom(vector<int> a)
 {
 	pStop = nullptr;
 	int sz1 = 2;
@@ -114,7 +110,7 @@ TPolinom::TPolinom(vector<int> a) // сделано
 	Reset();
 }
 
-TPolinom& TPolinom::operator=(TPolinom& other)// сделано
+TPolinom& TPolinom::operator=(TPolinom& other)
 {
 	int sz = GetLength();
 	Reset();
@@ -137,7 +133,7 @@ TPolinom& TPolinom::operator=(TPolinom& other)// сделано
 	return *this;
 }
 
-void TPolinom::AddMonom(TMonom m)// сделано
+void TPolinom::AddMonom(TMonom m)
 {
 	int sz = GetLength();
 	int i = 0;
@@ -223,7 +219,7 @@ TPolinom TPolinom::operator*(TPolinom& other)
 	return result;
 }
 
-bool TPolinom::operator==(TPolinom& other)// сделано
+bool TPolinom::operator==(TPolinom& other)
 {
 	int sz = other.GetLength();
 	if (this->GetLength() != other.GetLength()) {
@@ -245,7 +241,7 @@ bool TPolinom::operator==(TPolinom& other)// сделано
 }
 
 
-string TPolinom::ToString()//сделано
+string TPolinom::ToString()
 {
 	string result;
 	int sz =GetLength();

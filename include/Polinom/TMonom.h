@@ -1,8 +1,9 @@
 #pragma once
+
 struct TMonom
 {
-	double coef; // коэффициент монома
-	int index; // индекс (свертка степеней)
+	double coef;
+	int index;
 
 	TMonom() {
 		coef = 0;
