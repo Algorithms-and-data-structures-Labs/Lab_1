@@ -88,10 +88,10 @@ TPolinom::TPolinom(vector<int> a) {
           Reset();
           GoNext();
           DeleteCurrent();
-	  } else {
-        mon.SetCoef(mon.GetCoef() + a[i]);
-        DeleteCurrent();
-        InsertPrevCurrent(mon);
+	    } else {
+          mon.SetCoef(mon.GetCoef() + a[i]);
+          DeleteCurrent();
+          InsertPrevCurrent(mon);
         }
       } else {
         InsertPrevCurrent(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
@@ -225,7 +225,6 @@ bool TPolinom::operator==(TPolinom& other) {
   }
   return true;
 }
-
 
 string TPolinom::ToString() {
   string result;
