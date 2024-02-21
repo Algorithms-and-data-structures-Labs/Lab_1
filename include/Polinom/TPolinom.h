@@ -88,7 +88,7 @@ TPolinom::TPolinom(vector<int> a) {
           Reset();
           GoNext();
           DeleteCurrent();
-	    } else {
+        } else {
           mon.SetCoef(mon.GetCoef() + a[i]);
           DeleteCurrent();
           InsertPrevCurrent(mon);
