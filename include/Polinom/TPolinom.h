@@ -79,22 +79,21 @@ TPolinom::TPolinom(vector<int> a) {
           InsertLast(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
           sz1++;
           return;
-       }
-    }
-    if (ind == ind1) {
-      if (i1 == 1) {
-        mon.SetCoef(mon.GetCoef() + a[i]);
-        InsertFirst(mon);
-        Reset();
-        GoNext();
-        DeleteCurrent();
-	  }
-      else {
+        }
+      }
+      if (ind == ind1) {
+        if (i1 == 1) {
+          mon.SetCoef(mon.GetCoef() + a[i]);
+          InsertFirst(mon);
+          Reset();
+          GoNext();
+          DeleteCurrent();
+	    } else {
         mon.SetCoef(mon.GetCoef() + a[i]);
         DeleteCurrent();
         InsertPrevCurrent(mon);
-      }
-    } else {
+        }
+      } else {
         InsertPrevCurrent(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
         sz1++;
       }
@@ -153,7 +152,7 @@ void TPolinom::AddMonom(TMonom m) {
         mon.SetCoef(mon.GetCoef() + m.GetCoef());
         DeleteCurrent();
         InsertPrevCurrent(mon);
-      } else { 
+      } else {
         DeleteCurrent();
       }
     } else {
@@ -221,7 +220,7 @@ bool TPolinom::operator==(TPolinom& other) {
     other.GoNext();
     if (a == b) {
     } else {
-    return false;
+      return false;
     }
   }
   return true;
@@ -246,8 +245,8 @@ string TPolinom::ToString() {
     result += std::to_string(((ind % 100) - (ind % 10)) / 10);
     result += "Z";
     result += std::to_string(ind % 10);
-    if(i!=sz-1) result += " + ";
-    if(i<sz-1) GoNext();
+    if(i != sz - 1) result += " + ";
+    if(i < sz - 1) GoNext();
   }
   Reset();
   return result;

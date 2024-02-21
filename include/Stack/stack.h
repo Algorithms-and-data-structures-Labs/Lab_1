@@ -61,7 +61,7 @@ T TStack<T>::Get() {
 
 template <class T>
 TStack<T>::TStack(int n) {
-  if (n < 0) 
+  if (n < 0)
     throw "Error size";
   else if (n == 0) {
     size = 0;
