@@ -1,9 +1,9 @@
 #pragma once
+#include <table/tablerec.h>
+
 #include <iostream>
 #include <locale>
 #include <string>
-
-#include <table/tablerec.h>
 
 template <typename TKey, typename TValue>
 class ArrayTable : public Table<TKey, TValue> {
@@ -14,8 +14,10 @@ class ArrayTable : public Table<TKey, TValue> {
   ArrayTable() : currentIndex(0) {}
 
   bool IsFull() const override {
-    if (count == TabMaxSize) return true;
-    else return false;
+    if (count == TabMaxSize)
+      return true;
+    else
+      return false;
   }
 
   TValue* Find(TKey key) override {

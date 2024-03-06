@@ -1,8 +1,9 @@
-#include "gtest/gtest.h"
 #include <table/tablearr.h>
 
+#include "gtest/gtest.h"
+
 TEST(TableArray, basic_test1) {
-  ArrayTable<int,int> arrtab;
+  ArrayTable<int, int> arrtab;
   arrtab.Insert(1, 1);
   int a = *arrtab.Find(1);
   ASSERT_EQ(1, a);

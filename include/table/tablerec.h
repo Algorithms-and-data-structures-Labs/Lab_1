@@ -25,15 +25,18 @@ template <typename TKey, typename TValue>
 class Table : public Unorderable<typename TKey, typename TValue> {
  protected:
   int count;
+
  public:
   int GetDataCount() const { return count; }
   bool IsEmpty() const {
-    if (count == 0) return true;
-    else return false;
+    if (count == 0)
+      return true;
+    else
+      return false;
   }
   virtual bool IsFull() const = 0;
   virtual TValue* Find(TKey key) = 0;
-  virtual void Insert(TKey key, TValue value) = 0; 
+  virtual void Insert(TKey key, TValue value) = 0;
   virtual void Delete(TKey key) = 0;
   virtual int Reset(void) = 0;
   virtual int IsTabEnded(void) const = 0;
