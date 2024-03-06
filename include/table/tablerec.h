@@ -15,6 +15,7 @@ class Unorderable {
     TValue* value;
   };
   vector<TabRec> data{};
+
  public:
   Unorderable() = default;
   size_t size() const noexcept { return data.size(); }
