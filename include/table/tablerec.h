@@ -8,7 +8,7 @@ using namespace std;
 
 #define TabMaxSize 100
 template <typename TKey, typename TValue>
-class Unordertable {
+class Unorderable {
  protected:
   struct TabRec {
     TKey key;
@@ -23,7 +23,7 @@ class Unordertable {
 };
 
 template <typename TKey, typename TValue>
-class Table : public Unordertable<typename TKey, typename TValue> {
+class Table : public Unorderable<typename TKey, typename TValue> {
  protected:
   int count;
 
