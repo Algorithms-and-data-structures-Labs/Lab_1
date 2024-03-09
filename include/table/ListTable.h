@@ -24,9 +24,7 @@ class ListTable : public Table<TKey, TValue> {
  public:
   ListTable() : head(nullptr) {}
 
-  bool IsFull() const override {
-    return false;
-  }
+  bool IsFull() const override { return false; }
 
   TValue* Find(TKey key) override {
     current = head;
@@ -74,30 +72,30 @@ class ListTable : public Table<TKey, TValue> {
     return 0;
   }
 
-  int IsTabEnded() const override { return current == nullptr;}
+  int IsTabEnded() const override { return current == nullptr; }
 
   int GoNext() override {
     if (!IsTabEnded()) {
-        current = current->next;
-        return true;
+      current = current->next;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
 
   TKey GetKey() const override {
     if (current != nullptr) {
-        return current->key;
+      return current->key;
     } else {
-        return TKey();
+      return TKey();
     }
   }
 
   TValue GetValuePtr() const override {
     if (current != nullptr) {
-        return *(current->value);
+      return *(current->value);
     } else {
-        return TValue();
+      return TValue();
     }
   }
 

@@ -52,7 +52,6 @@ TEST(ListTable, Is_Ended) {
   listtab.GoNext();
   listtab.GoNext();
   ASSERT_EQ(true, listtab.IsTabEnded());
-
 }
 
 TEST(ListTable, GoNext) {
