@@ -102,7 +102,6 @@ class ListTable : public Table<TKey, TValue> {
   }
 
   ~ListTable() {
-    // Освобождаем память, занятую узлами списка и значениями
     current = head;
     while (current != nullptr) {
       Node<TKey, TValue>* next = current->next;
