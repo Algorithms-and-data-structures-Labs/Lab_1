@@ -8,6 +8,7 @@ TEST(TableArray, find_test1) {
   int a = *arrtab.Find(1);
   ASSERT_EQ(1, a);
 }
+
 TEST(TableArray, find_test2) {
   ArrayTable<int, int> arrtab;
   arrtab.Insert(1, 2);
