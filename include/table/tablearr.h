@@ -12,7 +12,7 @@ class ArrayTable : public Table<TKey, TValue> {
 
  public:
   ArrayTable() : currentIndex(0) { count = 0; }
-  
+
   bool IsFull() const override {
     if (count == TabMaxSize)
       return true;
