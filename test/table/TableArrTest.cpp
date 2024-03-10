@@ -31,7 +31,7 @@ TEST(TableArray, delete_test) {
 }
 TEST(TableArray, isfull_test1) {
   ArrayTable<int, int> arrtab;
-  for (int i = 0;i < 100; i++) arrtab.Insert(i, i);
+  for (int i = 0; i < 100; i++) arrtab.Insert(i, i);
   bool a = arrtab.IsFull();
   ASSERT_EQ(1, a);
 }
