@@ -11,7 +11,7 @@ class ArrayTable : public Table<TKey, TValue> {
   size_t currentIndex;
 
  public:
-  ArrayTable() : currentIndex(0) {}
+  ArrayTable() : currentIndex(0) { count = 0; }
 
   bool IsFull() const override {
     if (count == TabMaxSize)
@@ -27,7 +27,8 @@ class ArrayTable : public Table<TKey, TValue> {
   }
 
   void Insert(TKey key, TValue value) override {
-    TabRec tab = {key, &value};
+    TValue* newValue = new TValue(value);
+    TabRec tab = {key, newValue};
     data.push_back(tab);
     this->count++;
   }
