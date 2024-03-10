@@ -27,8 +27,7 @@ class ArrayTable : public Table<TKey, TValue> {
   }
 
   void Insert(TKey key, TValue value) override {
-    TValue* newValue = new TValue(
-        value);
+    TValue* newValue = new TValue(value);
     TabRec tab = {key, newValue};
     data.push_back(tab);
     this->count++;
