@@ -11,7 +11,6 @@ class ArrayTable : public Table<TKey, TValue> {
   size_t currentIndex;
 
  public:
-
   ArrayTable() : currentIndex(0) { count = 0; }
   
   bool IsFull() const override {
