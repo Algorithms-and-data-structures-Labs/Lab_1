@@ -9,8 +9,15 @@ template <typename TKey, typename TValue>
 class ArrayTable : public Table<TKey, TValue> {
  private:
   size_t currentIndex;
+  struct TabRec {
+    TKey key;
+    TValue* value;
+  };
+  vector<TabRec> data{};
 
  public:
+  size_t size() const noexcept { return data.size(); }
+  TValue& operator[](size_t pos) { return data[pos].value; }
   ArrayTable() : currentIndex(0) { count = 0; }
 
   bool IsFull() const override {

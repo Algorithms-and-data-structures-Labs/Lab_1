@@ -8,22 +8,7 @@ using namespace std;
 
 #define TabMaxSize 100
 template <typename TKey, typename TValue>
-class Unordertable {
- protected:
-  struct TabRec {
-    TKey key;
-    TValue* value;
-  };
-  vector<TabRec> data{};
-
- public:
-  Unordertable() = default;
-  size_t size() const noexcept { return data.size(); }
-  TValue& operator[](size_t pos) { return data[pos].value; }
-};
-
-template <typename TKey, typename TValue>
-class Table : public Unordertable<typename TKey, typename TValue> {
+class Table {
  protected:
   int count;
 
