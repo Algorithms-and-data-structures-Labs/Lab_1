@@ -47,6 +47,7 @@ class ArrayTable : public Table<TKey, TValue> {
         data.pop_back();
         return;
       }
+    this->count--;
   }
 
   int Reset() override {
