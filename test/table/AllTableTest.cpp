@@ -32,7 +32,7 @@ TEST(TableAll, find_test3) {
 TEST(TableAll, delete_test) {
   AllTable<int, int> tab;
   tab.Insert(1, 1);
-  tab.Insert(1, 2);
+  tab.Insert(2, 3);
   tab.Delete(2);
   tab.Insert(2, 2);
   std::vector<int> vecOfOnes(6, 2);
