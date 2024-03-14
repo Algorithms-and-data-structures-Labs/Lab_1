@@ -1,11 +1,11 @@
 #pragma once
-#include <table/tablearr.h>
 #include <table/ListTable.h>
+#include <table/tablearr.h>
 
+#include <algorithm>
 #include <iostream>
 #include <locale>
 #include <string>
-#include <algorithm>
 #include <vector>
 
 #define MaxSize 100
@@ -14,6 +14,7 @@ class AllTable {
  private:
   std::vector<Table<TKey, TValue>*> tables;
   int count;
+
  public:
   AllTable() {
     count = 0;
@@ -43,7 +44,7 @@ class AllTable {
 
   std::vector<TValue*> Find(TKey key) {
     std::vector<TValue*> a;
-    for (int i = 0;i < 6;i++) a.push_back(tables[i]->Find(key));
+    for (int i = 0; i < 6;i++) a.push_back(tables[i]->Find(key));
     return a;
   }
 
