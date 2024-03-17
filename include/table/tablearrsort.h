@@ -1,5 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
+
 #include <algorithm>
 #include <iostream>
 #include <locale>
@@ -32,7 +33,7 @@ class SortArrayTable : public Table<TKey, TValue> {
     return nullptr;
   }
 
- void Insert(TKey key, TValue value) override {
+  void Insert(TKey key, TValue value) override {
     TValue* newValue = new TValue(value);
     TabRec tab = {key, newValue};
     data.push_back(tab);
@@ -41,9 +42,7 @@ class SortArrayTable : public Table<TKey, TValue> {
          [](const TabRec& a, const TabRec& b) { return a.key < b.key; });
   }
 
-  bool IsFull() const override {
-    return size() >= TabMaxSize;
-  }
+  bool IsFull() const override { return size() >= TabMaxSize; }
 
   void Delete(TKey key) override {
     for (size_t i = 0; i < data.size(); i++)
