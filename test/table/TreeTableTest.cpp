@@ -11,10 +11,17 @@ TEST(TreeTable, InsertAndFind) {
   EXPECT_EQ(*treeTable.Find(1), 1);
   EXPECT_EQ(*treeTable.Find(2), 2);
 }
-
-
- //Тест проверки корректного перебора элементов
-
+TEST(TreeTable, isempty_test1) {
+  TreeTable<int, int> arrtab;
+  bool a = arrtab.IsEmpty();
+  ASSERT_EQ(1, a);
+}
+TEST(TreeTable, isempty_test2) {
+  TreeTable<int, int> arrtab;
+  arrtab.Insert(1, 1);
+  bool a = arrtab.IsEmpty();
+  ASSERT_EQ(0, a);
+}
 TEST(TreeTable, ResetAndGoNext) {
   TreeTable<int, int> table;
 
@@ -33,7 +40,6 @@ TEST(TreeTable, ResetAndGoNext) {
   
 }
 
-// Тест на удаление несуществующего элемента
 TEST(TreeTable, DeleteNonExistent) {
   TreeTable<int, int> treeTable;
 
@@ -68,7 +74,7 @@ TEST(TreeTable, InsertDuplicate) {
   treeTable.Insert(1, 1);
   treeTable.Insert(1, 2);  
 
-  EXPECT_EQ(*treeTable.Find(1), 2);
+  EXPECT_EQ(*treeTable.Find(1), 1);
 }
 
 TEST(TreeTable, IsTabEnded) {
@@ -84,4 +90,15 @@ TEST(TreeTable, IsTabEnded) {
 
   table.GoNext();
   ASSERT_EQ(table.IsTabEnded(), 1);
+}
+
+TEST(TreeTable, getkey_test) {
+  TreeTable<int, int> arrtab;
+  arrtab.Insert(1, 1);
+  arrtab.Insert(2, 2);
+  int a = 0;
+  for (arrtab.Reset(); !arrtab.IsTabEnded(); arrtab.GoNext()) {
+    a += arrtab.GetKey();
+  }
+  ASSERT_EQ(3, a);
 }

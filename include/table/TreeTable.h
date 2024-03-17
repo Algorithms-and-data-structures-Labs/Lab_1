@@ -49,19 +49,32 @@ class TreeTable : public Table<TKey, TValue> {
   }
 
   void Insert(TKey key, TValue d) override {
-    if (IsFull()) return;
+    if ( Find(key) != nullptr) {
+      return;  
+    }
 
-    if (Find(key) != nullptr) {
-      TreeNode<TKey, TValue>* node = *ref;
-      delete node->value;  // Удаляем старое значение
-      node->value = new TValue(d);  // Присваиваем новое значение
-      return;
+    TreeNode<TKey, TValue>* node = root;
+    TreeNode<TKey, TValue>** ref = &root;
+
+    while (node != nullptr) {
+      if (node->key == key) {
+        delete node->value;  
+        node->value = new TValue(d);  
+        return;
+      }
+
+      if (node->key < key) {
+        ref = &node->right;
+        node = node->right;
+      } else {
+        ref = &node->left;
+        node = node->left;
+      }
     }
 
     *ref = new TreeNode<TKey, TValue>(key, new TValue(d), nullptr, nullptr);
     count++;
   }
-
 
   void Delete(TKey k) override {
     if (root == nullptr) return;
@@ -69,20 +82,20 @@ class TreeTable : public Table<TKey, TValue> {
     if (Find(k) != nullptr) {
       TreeNode<TKey, TValue>* node = *ref;
 
-      if (node->left == nullptr &&
-          node->right == nullptr) {  // Удаление листьев
-        *ref = nullptr;
+      if (node->left == nullptr && node->right == nullptr) {  // Удаление листьев
+            *ref = nullptr;
       } else if (node->left == nullptr) {  // Удаление узла с одним потомком
-        *ref = node->right;
+            *ref = node->right;
       } else if (node->right == nullptr) {  // Удаление узла с одним потомком
-        *ref = node->left;
+            *ref = node->left;
       } else {  // Удаление узла с двумя потомками
         TreeNode<TKey, TValue>** tmp = &node->left;
         while ((*tmp)->right != nullptr) {
-          tmp = &((*tmp)->right);
+            tmp = &((*tmp)->right);
         }
+
         node->key = (*tmp)->key;
-        delete node->value;  // Удаляем старое значение
+        delete node->value;  
         node->value = (*tmp)->value;
         TreeNode<TKey, TValue>* toDelete = *tmp;
         *tmp = (*tmp)->left;
@@ -125,9 +138,6 @@ class TreeTable : public Table<TKey, TValue> {
       return IsTabEnded();
   }
     
-  
-  
-
   TKey GetKey() const override {
     if (cur != nullptr) {
       return cur->key;

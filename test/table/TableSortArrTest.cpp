@@ -2,17 +2,21 @@
 
 #include "gtest/gtest.h"
 
-TEST(SortArrayTable, basic_test1) {
+TEST(SortArrayTable, Inserttest1) {
   SortArrayTable<int, int> arrtab;
   arrtab.Insert(1, 1);
   int a = *arrtab.Find(1);
   ASSERT_EQ(1, a);
 }
-TEST(SortArrayTable, basic_test2) {
+TEST(SortArrayTable, Inserttest2) {
   SortArrayTable<int, int> arrtab;
   arrtab.Insert(1, 2);
   int a = *arrtab.Find(1);
   ASSERT_EQ(2, a);
+}
+TEST(SortArrayTable, can_create_table) {
+  SortArrayTable<int, std::string> table;
+  EXPECT_EQ(table.size(), 0);
 }
 TEST(SortArrayTable, insert_and_find_multiple_elements) {
   SortArrayTable<int, int> arrtab;
@@ -74,4 +78,19 @@ TEST(SortArrayTable, remove_all_elements) {
     arrtab.Delete(i);
     ASSERT_TRUE(arrtab.Find(i) == nullptr);
   }
+}
+TEST(SortArrayTable, GoNext_moves_to_next_element) {
+  SortArrayTable<int, float> table;
+  table.Insert(1, 3.14);
+  table.Insert(2, 2.71);
+
+  EXPECT_EQ(table.GetKey(), 1);
+  table.GoNext();
+  EXPECT_EQ(table.GetKey(), 2);
+}
+TEST(SortArrayTable, isfull_test) {
+  SortArrayTable<int, int> arrtab;
+  for (int i = 1; i < 101; i++) arrtab.Insert(i, i);
+  bool a = arrtab.IsFull();
+  ASSERT_EQ(true, a);  
 }

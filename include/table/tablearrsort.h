@@ -9,21 +9,21 @@ template <typename TKey, typename TValue>
 class SortArrayTable : public Table<TKey, TValue> {
  private:
   size_t currentIndex;
+  struct TabRec {
+    TKey key;
+    TValue* value;
+  };
+  vector<TabRec> data{};
 
  public:
+  size_t size() const noexcept { return data.size(); }
+  TValue& operator[](size_t pos) { return data[pos].value; }
   SortArrayTable() : currentIndex(0) {}
 
   ~SortArrayTable() {
     for (auto& tab : data) {
       delete tab.value;
     }
-  }
-
-  bool IsFull() const override {
-    if (count == TabMaxSize)
-      return true;
-    else
-      return false;
   }
 
   TValue* Find(TKey key) override {
@@ -36,16 +36,20 @@ class SortArrayTable : public Table<TKey, TValue> {
     TValue* newValue = new TValue(value);
     TabRec tab = {key, newValue};
     data.push_back(tab);
-    this->count++;
+    count++;  
     sort(data.begin(), data.end(),
          [](const TabRec& a, const TabRec& b) { return a.key < b.key; });
+  }
+
+  bool IsFull() const override {
+    return size() >= TabMaxSize; 
   }
 
   void Delete(TKey key) override {
     for (size_t i = 0; i < data.size(); i++)
       if (data[i].key == key) {
         data.erase(data.begin() + i);
-        this->count--;
+        count--;
         return;
       }
   }
