@@ -9,9 +9,16 @@ template <typename TKey, typename TValue>
 class ArrayTable : public Table<TKey, TValue> {
  private:
   size_t currentIndex;
+  struct TabRec {
+    TKey key;
+    TValue* value;
+  };
+  vector<TabRec> data{};
 
  public:
-  ArrayTable() : currentIndex(0) {}
+  size_t size() const noexcept { return data.size(); }
+  TValue& operator[](size_t pos) { return data[pos].value; }
+  ArrayTable() : currentIndex(0) { count = 0; }
 
   bool IsFull() const override {
     if (count == TabMaxSize)
@@ -27,7 +34,8 @@ class ArrayTable : public Table<TKey, TValue> {
   }
 
   void Insert(TKey key, TValue value) override {
-    TabRec tab = {key, &value};
+    TValue* newValue = new TValue(value);
+    TabRec tab = {key, newValue};
     data.push_back(tab);
     this->count++;
   }
