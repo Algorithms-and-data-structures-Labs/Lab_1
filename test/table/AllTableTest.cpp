@@ -122,7 +122,7 @@ TEST(TableAll, getkey_test1) {
   c = tab.GetKey();
   std::vector<string> vec1 = {"key1", "key3", "key1", "key1", "key1", "key1"};
   std::vector<string> vec2(6, "key2");
-  std::vector<string> vec3 = {"key3",  "key1", "key3", "key3", "key3", "key3"};
+  std::vector<string> vec3 = {"key3", "key1", "key3", "key3", "key3", "key3"};
   ASSERT_EQ(vec1, a);
   ASSERT_EQ(vec2, b);
   ASSERT_EQ(vec3, c);
@@ -141,12 +141,10 @@ TEST(TableAll, getkey_test2) {
   std::vector<string> c;
   tab.GoNext();
   c = tab.GetKey();
-  std::vector<string> vec1 = {"key3",  "key10", "key3",
+  std::vector<string> vec1 = {"key3", "key10", "key3",
                               "key3", "key10", "key10"};
-  std::vector<string> vec2 = {"key8", "key8", "key10",
-                              "key10", "key3", "key3"};
-  std::vector<string> vec3 = {"key10", "key3", "key8",
-                              "key8", "key8", "key8"};
+  std::vector<string> vec2 = {"key8", "key8", "key10", "key10", "key3", "key3"};
+  std::vector<string> vec3 = {"key10", "key3", "key8", "key8", "key8", "key8"};
   ASSERT_EQ(vec1, a);
   ASSERT_EQ(vec2, b);
   ASSERT_EQ(vec3, c);

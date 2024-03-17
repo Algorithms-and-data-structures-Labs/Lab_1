@@ -1,10 +1,10 @@
 #pragma once
-#include <table/ListTable.h>
-#include <table/tablearr.h>
 #include <table/ListHashTable.h>
+#include <table/ListTable.h>
 #include <table/OpenAddressingHashTable.h>
-#include <table/tablearrsort.h>
 #include <table/TreeTable.h>
+#include <table/tablearr.h>
+#include <table/tablearrsort.h>
 
 #include <algorithm>
 #include <iostream>
@@ -25,7 +25,7 @@ class AllTable {
     tables.push_back(new ArrayTable<TKey, TValue>());
     tables.push_back(new ListTable<TKey, TValue>());
     tables.push_back(new ListHashTable<TKey, TValue>(25));
-    tables.push_back(new OpenAddrHashTable<TKey, TValue>(25,2));
+    tables.push_back(new OpenAddrHashTable<TKey, TValue>(25, 2));
     tables.push_back(new SortArrayTable<TKey, TValue>());
     tables.push_back(new TreeTable<TKey, TValue>());
   }
