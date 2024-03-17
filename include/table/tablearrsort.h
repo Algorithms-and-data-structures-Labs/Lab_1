@@ -36,13 +36,13 @@ class SortArrayTable : public Table<TKey, TValue> {
     TValue* newValue = new TValue(value);
     TabRec tab = {key, newValue};
     data.push_back(tab);
-    count++;  
+    count++;
     sort(data.begin(), data.end(),
          [](const TabRec& a, const TabRec& b) { return a.key < b.key; });
   }
 
   bool IsFull() const override {
-    return size() >= TabMaxSize; 
+    return size() >= TabMaxSize;
   }
 
   void Delete(TKey key) override {

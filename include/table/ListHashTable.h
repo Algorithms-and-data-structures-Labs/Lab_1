@@ -20,16 +20,16 @@ class ListHashTable : public Table<TKey, TValue> {
         return hashval;
     }
  protected:
-    int TabSize;      
+    int TabSize;
     int CurList;
     std::list<TabRecord<TKey, TValue>> *pList;
-    typename std::list<TabRecord<TKey, TValue>>::iterator startChain; 
+    typename std::list<TabRecord<TKey, TValue>>::iterator startChain;
  public:
     ListHashTable(int size) {
         pList = new std::list<TabRecord<TKey, TValue>>[size];
         TabSize = size;
         CurList = 0;
-        for (int i = 0; i < TabSize; i++) {  
+        for (int i = 0; i < TabSize; i++) {
           pList[i] = std::list<TabRecord<TKey, TValue>>();
         }
     }
@@ -55,7 +55,7 @@ class ListHashTable : public Table<TKey, TValue> {
     void Insert(TKey k, TValue pVal) override {
         CurList = HashFunc(k) % TabSize;
         std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
-        TValue *val = new TValue(pVal);  
+        TValue *val = new TValue(pVal);
         TabRecord<TKey, TValue> record(k, val);
         lst->push_back(record);
     }

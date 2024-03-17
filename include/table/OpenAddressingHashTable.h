@@ -24,12 +24,12 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
   }
 
  private:
-  int pos;                        // позиция
-  TabRecord<TKey, TValue> **rec;  // память для записей таблицы
-  int tabsize;  // макс. возможное кол-во записей
-  int freepos;  // первая своб. строка, обнаруженная при поиске
-  int hashstep;  // шаг вторичного перемешивания
-  TabRecord<TKey, TValue> *mark;  // маркер для индикации строк с удалёнными записями
+  int pos;
+  TabRecord<TKey, TValue> **rec;
+  int tabsize;
+  int freepos;
+  int hashstep;
+  TabRecord<TKey, TValue> *mark;
 
  public:
   OpenAddrHashTable(int s, int step) : Table<TKey, TValue>() {
@@ -59,14 +59,14 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
     pos = HashFunc(k) % tabsize;
     for (int i = 0; i < tabsize; i++) {
       if (rec[pos] == nullptr)
-        break;  
-      else if ((rec[pos] == mark) && (freepos == -1))  
+        break;
+      else if ((rec[pos] == mark) && (freepos == -1))
         freepos = pos;
-      if (rec[pos]->key == k) { 
+      if (rec[pos]->key == k) {
         tmp = rec[pos];
         break;
       }
-      pos = GetNextPos(pos);  // открытое перемешивание
+      pos = GetNextPos(pos);
     }
     if (freepos != -1) pos = freepos;
 
