@@ -7,10 +7,10 @@
 
 using namespace std;
 template <typename TKey, typename TValue>
-struct TabRecord {
+struct TabRecorD {
   TKey key;
   TValue *value;
-  TabRecord(TKey k = TKey(), TValue *d = nullptr) : key(k), value(d) {}
+  TabRecorD(TKey k = TKey(), TValue *d = nullptr) : key(k), value(d) {}
 };
 
 template <typename TKey, typename TValue>
@@ -25,21 +25,21 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
 
  private:
   int pos;
-  TabRecord<TKey, TValue> **rec;
+  TabRecorD<TKey, TValue> **rec;
   int tabsize;
   int freepos;
   int hashstep;
-  TabRecord<TKey, TValue> *mark;
+  TabRecorD<TKey, TValue> *mark;
 
  public:
   OpenAddrHashTable(int s, int step) : Table<TKey, TValue>() {
-    rec = new TabRecord<TKey, TValue> *[s];
+    rec = new TabRecorD<TKey, TValue> *[s];
     for (int i = 0; i < s; i++) {
       rec[i] = nullptr;
     }
     tabsize = s;
     hashstep = step;
-    mark = new TabRecord<TKey, TValue>(TKey(), nullptr);
+    mark = new TabRecorD<TKey, TValue>(TKey(), nullptr);
   }
 
   ~OpenAddrHashTable() {
@@ -53,7 +53,7 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
   bool IsFull() const override { return count == tabsize; }
 
   TValue *Find(TKey k) override {
-    TabRecord<TKey, TValue> *tmp = nullptr;
+    TabRecorD<TKey, TValue> *tmp = nullptr;
     freepos = -1;
 
     pos = HashFunc(k) % tabsize;
@@ -79,7 +79,7 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
     if (IsFull()) return;
     if (Find(k) == nullptr) {
       TValue *newData = new TValue(d);
-      rec[pos] = new TabRecord<TKey, TValue>(k, newData);
+      rec[pos] = new TabRecorD<TKey, TValue>(k, newData);
       count++;
     }
   }
