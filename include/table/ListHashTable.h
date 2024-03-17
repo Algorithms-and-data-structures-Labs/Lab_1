@@ -35,10 +35,8 @@ class ListHashTable : public Table<TKey, TValue> {
     for (int i = 0; i < TabSize; i++)
       pList[i] = std::list<TabRecord<TKey, TValue>>();
   }
-  ~ListHashTable() {
-     delete[] pList;
-  }
-  bool IsFull() const override{ return false; }
+  ~ListHashTable() { delete[] pList; }
+  bool IsFull() const override { return false; }
 
   TValue *Find(TKey k) override {
     TabRecord<TKey, TValue> *tmp = nullptr;

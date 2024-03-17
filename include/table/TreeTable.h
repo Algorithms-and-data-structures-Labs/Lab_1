@@ -11,7 +11,7 @@ struct TreeNode {
   TValue* value;
   TreeNode *left, *right;
 
-  TreeNode(TKey key, TValue* value, TreeNode* l, TreeNode* r ) 
+  TreeNode(TKey key, TValue* value, TreeNode* l, TreeNode* r)
       : key(key), value(value), left(l), right(r) {}
   TreeNode* GetLeft() const { return left; }
   TreeNode* GetRight() const { return right; }
@@ -29,10 +29,10 @@ class TreeTable : public Table<TKey, TValue> {
  public:
   TreeTable()
       : Table<TKey, TValue>(),
-      root(nullptr),
-      curpos(0),
-      cur(nullptr),
-      ref(nullptr) {}
+        root(nullptr),
+        curpos(0),
+        cur(nullptr),
+        ref(nullptr) {}
   ~TreeTable() {}
 
   bool IsFull() const override { return false; }
@@ -66,11 +66,12 @@ class TreeTable : public Table<TKey, TValue> {
         return;
       }
       if (node->key < key) {
-          ref = &node->right;
-          node = node->right;
-      } else {
-          ref = &node->left;
-          node = node->left;
+        ref = &node->right;
+        node = node->right;
+      }
+      else {
+        ref = &node->left;
+        node = node->left;
       }
     }
     *ref = new TreeNode<TKey, TValue>(key, new TValue(d), nullptr, nullptr);
@@ -84,17 +85,19 @@ class TreeTable : public Table<TKey, TValue> {
       TreeNode<TKey, TValue>* node = *ref;
 
       if (node->left == nullptr && node->right == nullptr) {
-            *ref = nullptr;
-      } else if (node->left == nullptr) {
-            *ref = node->right;
-      } else if (node->right == nullptr) {
-            *ref = node->left;
-      } else {
+        *ref = nullptr;
+      }
+      else if (node->left == nullptr) {
+        *ref = node->right;
+      }
+      else if (node->right == nullptr) {
+        *ref = node->left;
+      }
+      else {
         TreeNode<TKey, TValue>** tmp = &node->left;
         while ((*tmp)->right != nullptr) {
           tmp = &((*tmp)->right);
         }
-
         node->key = (*tmp)->key;
         delete node->value;
         node->value = (*tmp)->value;
@@ -129,17 +132,17 @@ class TreeTable : public Table<TKey, TValue> {
     }
     if (!st.empty()) {
       cur = st.top()
-    }
-    else
+    } else
       cur = nullptr;
-      curpos++;
-      return IsTabEnded();
+    curpos++;
+    return IsTabEnded();
   }
-    
+
   TKey GetKey() const override {
     if (cur != nullptr) {
       return cur->key;
-    } else {
+    }
+    else {
       return TKey();
     }
   }
@@ -147,7 +150,8 @@ class TreeTable : public Table<TKey, TValue> {
   TValue GetValuePtr() const override {
     if (cur != nullptr) {
       return *(cur->value);
-    } else {
+    }
+    else {
       return TValue();
     }
   }

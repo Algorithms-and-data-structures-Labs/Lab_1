@@ -1,9 +1,9 @@
 #pragma once
 #include <table/tablerec.h>
 
+#include <iostream>
 #include <locale>
 #include <string>
-#include <iostream>
 
 using namespace std;
 template <typename TKey, typename TValue>
@@ -19,8 +19,7 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
   virtual unsigned long HashFunc(const TKey key) {
     unsigned long hashval = 0;
     int len = key.size();
-    for (int i = 0; i < len; i++)
-        hashval = (hashval << 3) + key[i];
+    for (int i = 0; i < len; i++) hashval = (hashval << 3) + key[i];
     return hashval;
   }
 
@@ -78,7 +77,7 @@ class OpenAddrHashTable : public Table<TKey, TValue> {
 
   void Insert(TKey k, TValue d) override {
     if (IsFull()) return;
-    if (Find(k) == nullptr ) {
+    if (Find(k) == nullptr) {
       TValue *newData = new TValue(d);
       rec[pos] = new TabRecord<TKey, TValue>(k, newData);
       count++;
