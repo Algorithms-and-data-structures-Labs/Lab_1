@@ -1,10 +1,9 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <list>
 #include <iostream>
+#include <list>
 #include <string>
-
 
 template <typename TKey, typename TValue>
 struct TabRecord {
@@ -16,26 +15,29 @@ template <typename TKey, typename TValue>
 class ListHashTable : public Table<TKey, TValue> {
  public:
   virtual unsigned long HashFunc(const TKey key) {
-  unsigned long hashval = 0;
-  int len = key.size();
-  for (int i = 0; i < len; ++i) hashval = (hashval << 3) + key[i];
-  return hashval;
+    unsigned long hashval = 0;
+    int len = key.size();
+    for (int i = 0; i < len; ++i) hashval = (hashval << 3) + key[i];
+    return hashval;
   }
+
  protected:
   int TabSize;
   int CurList;
   std::list<TabRecord<TKey, TValue>> *pList;
   typename std::list<TabRecord<TKey, TValue>>::iterator startChain;
+
  public:
   ListHashTable(int size) {
     pList = new std::list<TabRecord<TKey, TValue>>[size];
     TabSize = size;
     CurList = 0;
-    for (int i = 0; i < TabSize; i++) 
+    for (int i = 0; i < TabSize; i++)
       pList[i] = std::list<TabRecord<TKey, TValue>>();
-    }
   }
-  ~ListHashTable() { delete[] pList;}
+  ~ListHashTable() {
+     delete[] pList;
+  }
   bool IsFull() const override{ return false; }
 
   TValue *Find(TKey k) override {
@@ -49,9 +51,9 @@ class ListHashTable : public Table<TKey, TValue> {
       }
     }
     if (tmp == nullptr) return nullptr;
-      TValue *tms = tmp->value;
-      return tms;
-    }
+    TValue *tms = tmp->value;
+    return tms;
+  }
 
   void Insert(TKey k, TValue pVal) override {
     CurList = HashFunc(k) % TabSize;
