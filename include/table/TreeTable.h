@@ -127,7 +127,7 @@ class TreeTable : public Table<TKey, TValue> {
       node = node->left;
     }
     if (!st.empty()) {
-      cur = st.top()
+      cur = st.top();
     } else
       cur = nullptr;
     curpos++;
