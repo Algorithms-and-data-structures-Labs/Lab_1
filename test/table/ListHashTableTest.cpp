@@ -70,13 +70,16 @@ TEST(ListHashTable, isempty_test) {
  }
 
  TEST(ListHashTable, ResetAndGoNext) {
-  ListHashTable<string, int> hashTable(3);
-  hashTable.Insert("abc", 10);
-  hashTable.Insert("def", 20);
-  hashTable.Insert("ghi", 30);
-  hashTable.Reset();
-  EXPECT_EQ("abc", hashTable.GetKey());
-  hashTable.GoNext();
-  hashTable.GoNext();
-  EXPECT_EQ("ghi", hashTable.GetKey());
+  ListHashTable<string, int> table(2);
+  table.Insert("def", 20);
+  EXPECT_EQ("def", table.GetKey());
+
+  table.Insert("abc", 100);
+  EXPECT_EQ("abc", table.GetKey());
+
+  table.Reset();
+  EXPECT_EQ("def", table.GetKey());
+
+  table.GoNext();
+  EXPECT_EQ("abc", table.GetKey());
  }
