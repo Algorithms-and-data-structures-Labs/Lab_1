@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\sema\Lab_1\Lab_1\include\Polinom\TPolinom.h"
+#include "Polinom\TPolinom.h"
 
 namespace VisualTable2 {
 
@@ -10,23 +10,16 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-/// <summary>
-/// —водка дл€ Table
-/// </summary>
+
 public
 ref class Table : public System::Windows::Forms::Form {
  public:
   Table(void) {
     InitializeComponent();
-    //
-    // TODO: добавьте код конструктора
-    //
   }
 
  protected:
-  /// <summary>
-  /// ќсвободить все используемые ресурсы.
-  /// </summary>
+
   ~Table() {
     if (components) {
       delete components;
@@ -34,21 +27,14 @@ ref class Table : public System::Windows::Forms::Form {
   }
 
  private:
-  /// <summary>
-  /// ќб€зательна€ переменна€ конструктора.
-  /// </summary>
+
   System::ComponentModel::Container ^ components;
 
 #pragma region Windows Form Designer generated code
-  /// <summary>
-  /// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте
-  /// содержимое этого метода с помощью редактора кода.
-  /// </summary>
+
   void InitializeComponent(void) {
     this->SuspendLayout();
-    //
-    // Table
-    //
+
     this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
     this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
     this->ClientSize = System::Drawing::Size(668, 369);
@@ -61,4 +47,4 @@ ref class Table : public System::Windows::Forms::Form {
  private:
   System::Void Table_Load(System::Object ^ sender, System::EventArgs ^ e) {}
 };
-}  // namespace VisualTable
+}
