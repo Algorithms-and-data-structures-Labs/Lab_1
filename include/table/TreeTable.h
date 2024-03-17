@@ -68,8 +68,7 @@ class TreeTable : public Table<TKey, TValue> {
       if (node->key < key) {
         ref = &node->right;
         node = node->right;
-      }
-      else {
+      } else {
         ref = &node->left;
         node = node->left;
       }
@@ -86,14 +85,11 @@ class TreeTable : public Table<TKey, TValue> {
 
       if (node->left == nullptr && node->right == nullptr) {
         *ref = nullptr;
-      }
-      else if (node->left == nullptr) {
+      } else if (node->left == nullptr) {
         *ref = node->right;
-      }
-      else if (node->right == nullptr) {
+      } else if (node->right == nullptr) {
         *ref = node->left;
-      }
-      else {
+      } else {
         TreeNode<TKey, TValue>** tmp = &node->left;
         while ((*tmp)->right != nullptr) {
           tmp = &((*tmp)->right);
@@ -141,8 +137,7 @@ class TreeTable : public Table<TKey, TValue> {
   TKey GetKey() const override {
     if (cur != nullptr) {
       return cur->key;
-    }
-    else {
+    } else {
       return TKey();
     }
   }
@@ -150,8 +145,7 @@ class TreeTable : public Table<TKey, TValue> {
   TValue GetValuePtr() const override {
     if (cur != nullptr) {
       return *(cur->value);
-    }
-    else {
+    } else {
       return TValue();
     }
   }

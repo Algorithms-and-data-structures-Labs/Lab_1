@@ -55,7 +55,7 @@ TEST(SortArrayTable, find_nonexistent_key) {
   arrtab.Insert(3, 30);
   arrtab.Insert(1, 10);
 
-  ASSERT_TRUE(arrtab.Find(2) == nullptr);  
+  ASSERT_TRUE(arrtab.Find(2) == nullptr);
 }
 
 TEST(SortArrayTable, insert_duplicate_key) {
@@ -64,7 +64,7 @@ TEST(SortArrayTable, insert_duplicate_key) {
   arrtab.Insert(3, 300);
 
   int a = *arrtab.Find(3);
-  ASSERT_EQ(30, a);  
+  ASSERT_EQ(30, a);
 }
 TEST(SortArrayTable, remove_all_elements) {
   SortArrayTable<int, int> arrtab;
@@ -92,5 +92,5 @@ TEST(SortArrayTable, isfull_test) {
   SortArrayTable<int, int> arrtab;
   for (int i = 1; i < 101; i++) arrtab.Insert(i, i);
   bool a = arrtab.IsFull();
-  ASSERT_EQ(true, a);  
+  ASSERT_EQ(true, a);
 }

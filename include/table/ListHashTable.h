@@ -76,9 +76,9 @@ class ListHashTable : public Table<TKey, TValue> {
     CurList = 0;
     while (pList[CurList].empty()) {
       CurList++;
-        if (IsTabEnded()) {
-          return false;
-        }
+      if (IsTabEnded()) {
+        return false;
+      }
     }
     startChain = pList[CurList].begin();
     return !IsTabEnded();
@@ -99,7 +99,7 @@ class ListHashTable : public Table<TKey, TValue> {
       return false;
     }
     startChain = pList[CurList].begin();
-      return !IsTabEnded();
+    return !IsTabEnded();
   }
 
   TKey GetKey() const override {

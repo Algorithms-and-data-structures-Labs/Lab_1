@@ -37,7 +37,6 @@ TEST(TreeTable, ResetAndGoNext) {
 
   table.GoNext();
   ASSERT_EQ(table.GetKey(), 7);
-  
 }
 
 TEST(TreeTable, DeleteNonExistent) {
@@ -62,7 +61,6 @@ TEST(TreeTable, Delete) {
   EXPECT_EQ(*treeTable.Find(2), 2);
 }
 
-
 TEST(TreeTable, IsFull) {
   TreeTable<int, int> treeTable;
   EXPECT_FALSE(treeTable.IsFull());
@@ -72,7 +70,7 @@ TEST(TreeTable, InsertDuplicate) {
   TreeTable<int, int> treeTable;
 
   treeTable.Insert(1, 1);
-  treeTable.Insert(1, 2);  
+  treeTable.Insert(1, 2);
 
   EXPECT_EQ(*treeTable.Find(1), 1);
 }

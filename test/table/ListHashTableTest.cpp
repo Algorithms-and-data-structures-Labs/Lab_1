@@ -17,7 +17,6 @@ TEST(ListHashTable, Delete) {
   EXPECT_EQ(nullptr, hashTable.Find("abc"));
 }
 
-
 TEST(ListHashTable, DeleteNonExistent) {
   ListHashTable<string, int> table(25);
   table.Insert("key1", 100);
