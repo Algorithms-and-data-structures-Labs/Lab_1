@@ -140,4 +140,5 @@ To build and run this project locally on Windows, follow these steps:
    cmake ..
     ```
     *Note: Make sure you have CMake installed to build the project.*
-   
+
+## 7\. Характеристическая оценка производительности
