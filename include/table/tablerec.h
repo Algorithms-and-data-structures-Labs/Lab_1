@@ -3,6 +3,10 @@
 #include <locale>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <list>
+#include <stack>
+
 using namespace std;
 #define TabMaxSize 100
 template <typename TKey, typename TValue>

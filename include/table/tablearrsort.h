@@ -1,11 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <algorithm>
-#include <iostream>
-#include <locale>
-#include <string>
-
 template <typename TKey, typename TValue>
 class SortArrayTable : public Table<TKey, TValue> {
  private:

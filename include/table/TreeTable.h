@@ -1,9 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <iostream>
-#include <stack>
-
 template <typename TKey, typename TValue>
 struct TreeNode {
   TKey key;
@@ -19,11 +16,11 @@ struct TreeNode {
 template <typename TKey, typename TValue>
 class TreeTable : public Table<TKey, TValue> {
  public:
-  TreeNode<TKey, TValue>* root;
-  TreeNode<TKey, TValue>** ref;
-  TreeNode<TKey, TValue>* cur;
+  typename ::TreeNode<TKey, TValue>* root;
+  typename ::TreeNode<TKey, TValue>** ref;
+  typename ::TreeNode<TKey, TValue>* cur;
   int curpos;
-  stack<TreeNode<TKey, TValue>*> st;
+  stack<typename ::TreeNode<TKey, TValue>*> st;
 
  public:
   TreeTable()
@@ -37,7 +34,7 @@ class TreeTable : public Table<TKey, TValue> {
   bool IsFull() const override { return false; }
 
   TValue* Find(TKey k) override {
-    TreeNode<TKey, TValue>* node = root;
+    typename ::TreeNode<TKey, TValue>* node = root;
     ref = &root;
     while (node != nullptr) {
       if (node->key == k) break;
@@ -56,8 +53,8 @@ class TreeTable : public Table<TKey, TValue> {
     if (Find(key) != nullptr) {
       return;
     }
-    TreeNode<TKey, TValue>* node = root;
-    TreeNode<TKey, TValue>** ref = &root;
+    typename ::TreeNode<TKey, TValue>* node = root;
+    typename ::TreeNode<TKey, TValue>** ref = &root;
     while (node != nullptr) {
       if (node->key == key) {
         delete node->value;
@@ -72,7 +69,8 @@ class TreeTable : public Table<TKey, TValue> {
         node = node->left;
       }
     }
-    *ref = new TreeNode<TKey, TValue>(key, new TValue(d), nullptr, nullptr);
+    *ref = new
+        typename ::TreeNode<TKey, TValue>(key, new TValue(d), nullptr, nullptr);
     count++;
   }
 
@@ -80,7 +78,7 @@ class TreeTable : public Table<TKey, TValue> {
     if (root == nullptr) return;
 
     if (Find(k) != nullptr) {
-      TreeNode<TKey, TValue>* node = *ref;
+      typename ::TreeNode<TKey, TValue>* node = *ref;
 
       if (node->left == nullptr && node->right == nullptr) {
         *ref = nullptr;
@@ -89,14 +87,14 @@ class TreeTable : public Table<TKey, TValue> {
       } else if (node->right == nullptr) {
         *ref = node->left;
       } else {
-        TreeNode<TKey, TValue>** tmp = &node->left;
+        typename ::TreeNode<TKey, TValue>** tmp = &node->left;
         while ((*tmp)->right != nullptr) {
           tmp = &((*tmp)->right);
         }
         node->key = (*tmp)->key;
         delete node->value;
         node->value = (*tmp)->value;
-        TreeNode<TKey, TValue>* toDelete = *tmp;
+        typename ::TreeNode<TKey, TValue>* toDelete = *tmp;
         *tmp = (*tmp)->left;
         delete toDelete;
       }
@@ -105,7 +103,7 @@ class TreeTable : public Table<TKey, TValue> {
   }
 
   int Reset() override {
-    TreeNode<TKey, TValue>* node = cur = root;
+    typename ::TreeNode<TKey, TValue>* node = cur = root;
     while (!st.empty()) st.pop();
     curpos = 0;
     while (node != nullptr) {
@@ -120,7 +118,7 @@ class TreeTable : public Table<TKey, TValue> {
 
   int GoNext() override {
     st.pop();
-    TreeNode<TKey, TValue>* node = cur->right;
+    typename ::TreeNode<TKey, TValue>* node = cur->right;
     while (node && !IsTabEnded()) {
       st.push(node);
       node = node->left;

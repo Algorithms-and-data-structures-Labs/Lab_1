@@ -6,17 +6,13 @@
 #include <table/tablearr.h>
 #include <table/tablearrsort.h>
 
-#include <algorithm>
-#include <iostream>
-#include <locale>
-#include <string>
-#include <vector>
+
 
 #define MaxSize 100
 template <typename TKey, typename TValue>
 class AllTable {
  private:
-  std::vector<Table<TKey, TValue>*> tables;
+  vector<Table<TKey, TValue>*> tables;
   int count;
 
  public:
@@ -29,6 +25,9 @@ class AllTable {
     tables.push_back(new SortArrayTable<TKey, TValue>());
     tables.push_back(new TreeTable<TKey, TValue>());
   }
+
+
+
 
   int GetDataCount() const { return count; }
 
@@ -46,8 +45,8 @@ class AllTable {
       return false;
   }
 
-  std::vector<TValue*> Find(TKey key) {
-    std::vector<TValue*> a;
+  vector<TValue*> Find(TKey key) {
+    vector<TValue*> a;
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->Find(key));
     return a;
   }
@@ -62,32 +61,32 @@ class AllTable {
     count--;
   }
 
-  std::vector<int> Reset() {
-    std::vector<int> a;
+  vector<int> Reset() {
+    vector<int> a;
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->Reset());
     return a;
   }
 
-  std::vector<int> IsTabEnded() const {
-    std::vector<int> a;
+  vector<int> IsTabEnded() const {
+    vector<int> a;
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->IsTabEnded());
     return a;
   }
 
-  std::vector<int> GoNext() {
-    std::vector<int> a;
+  vector<int> GoNext() {
+    vector<int> a;
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->GoNext());
     return a;
   }
 
-  std::vector<TKey> GetKey() const {
-    std::vector<TKey> a;
+  vector<TKey> GetKey() const {
+    vector<TKey> a;
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->GetKey());
     return a;
   }
 
-  std::vector<TValue> GetValuePtr() const {
-    std::vector<TValue> a;
+  vector<TValue> GetValuePtr() const {
+    vector<TValue> a;
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->GetValuePtr());
     return a;
   }

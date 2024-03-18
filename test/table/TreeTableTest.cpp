@@ -3,13 +3,13 @@
 #include "gtest/gtest.h"
 
 TEST(TreeTable, InsertAndFind) {
-  TreeTable<int, int> treeTable;
+  TreeTable<int, string> treeTable;
 
-  treeTable.Insert(1, 1);
-  treeTable.Insert(2, 2);
+  treeTable.Insert(1, "1");
+  treeTable.Insert(2, "2");
 
-  EXPECT_EQ(*treeTable.Find(1), 1);
-  EXPECT_EQ(*treeTable.Find(2), 2);
+  EXPECT_EQ(*treeTable.Find(1), "1");
+  EXPECT_EQ(*treeTable.Find(2), "2");
 }
 TEST(TreeTable, isempty_test1) {
   TreeTable<int, int> arrtab;
