@@ -2,76 +2,75 @@
 
 #include "gtest/gtest.h"
 TEST(ListHashTable, InsertAndFind) {
-  ListHashTable<string, int> hashTable(25);
-  hashTable.Insert("abc", 10);
-  hashTable.Insert("def", 20);
-  EXPECT_EQ(10, *(hashTable.Find("abc")));
-  EXPECT_EQ(20, *(hashTable.Find("def")));
+  ListHashTable<int, int> hashTable(25);
+  hashTable.Insert(1, 10);
+  hashTable.Insert(2, 20);
+  EXPECT_EQ(10, *(hashTable.Find(1)));
+  EXPECT_EQ(20, *(hashTable.Find(2)));
 }
 
 TEST(ListHashTable, Delete) {
-  ListHashTable<string, int> hashTable(25);
-  hashTable.Insert("abc", 10);
-  hashTable.Insert("def", 20);
-  hashTable.Delete("abc");
-  EXPECT_EQ(nullptr, hashTable.Find("abc"));
+  ListHashTable<int, int> hashTable(25);
+  hashTable.Insert(1, 10);
+  hashTable.Insert(2, 20);
+  hashTable.Delete(1);
+  EXPECT_EQ(nullptr, hashTable.Find(1));
 }
 
 TEST(ListHashTable, DeleteNonExistent) {
-  ListHashTable<string, int> table(25);
-  table.Insert("key1", 100);
-  table.Insert("key2", 200);
-  table.Delete("key3");
-  EXPECT_EQ(table.Find("key3"), nullptr);
+  ListHashTable<int, int> table(25);
+  table.Insert(1, 100);
+  table.Insert(2, 200);
+  table.Delete(3);
+  EXPECT_EQ(table.Find(3), nullptr);
 }
 
 TEST(ListHashTable, IsFull) {
-  ListHashTable<string, int> table(2);
+  ListHashTable<int, int> table(2);
   EXPECT_FALSE(table.IsFull());
 }
 
 TEST(ListHashTable, InsertDuplicate) {
-  ListHashTable<string, int> table(25);
-  table.Insert("key1", 100);
-  table.Insert("key2", 200);
-  EXPECT_EQ(*table.Find("key1"), 100);
+  ListHashTable<int, int> table(25);
+  table.Insert(1, 100);
+  table.Insert(2, 200);
+  EXPECT_EQ(*table.Find(1), 100);
 }
 
 TEST(ListHashTable, isempty_test) {
-  ListHashTable<string, int> table(25);
-  table.Insert("key1", 100);
+  ListHashTable<int, int> table(25);
+  table.Insert(1, 100);
   bool a = table.IsEmpty();
   ASSERT_EQ(0, a);
 }
 
 TEST(ListHashTable, IsTabEnded) {
-  ListHashTable<string, int> table(2);
-  table.Insert("key1", 100);
-  table.Insert("key2", 200);
+  ListHashTable<int, int> table(2);
+  table.Insert(1, 100);
+  table.Insert(2, 200);
   EXPECT_FALSE(table.IsTabEnded());
 }
 
 TEST(ListHashTable, GetValueTest) {
-  ListHashTable<string, int> table(2);
-  table.Insert("abc", 100);
-  EXPECT_EQ(100, table.GetValuePtr());
+  ListHashTable<int, int> table(2);
+  table.Insert(1, 100);
+  table.Insert(2, 200);
+  EXPECT_EQ(200, table.GetValuePtr());
 }
 
 TEST(ListHashTable, GetKeyTest) {
-  ListHashTable<string, int> table(2);
-  table.Insert("def", 20);
-  table.Insert("abc", 100);
-  EXPECT_EQ("abc", table.GetKey());
+  ListHashTable<int, int> table(2);
+  table.Insert(1, 20);
+  table.Insert(2, 100);
+  EXPECT_EQ(2, table.GetKey());
 }
 
 TEST(ListHashTable, ResetAndGoNext) {
-  ListHashTable<string, int> table(2);
-  table.Insert("def", 20);
-  EXPECT_EQ("def", table.GetKey());
-  table.Insert("abc", 100);
-  EXPECT_EQ("abc", table.GetKey());
+  ListHashTable<int, int> table(2);
+  table.Insert(2, 20);
+  table.Insert(1, 100);
   table.Reset();
-  EXPECT_EQ("def", table.GetKey());
+  EXPECT_EQ(2, table.GetKey());
   table.GoNext();
-  EXPECT_EQ("abc", table.GetKey());
+  EXPECT_EQ(1, table.GetKey());
 }

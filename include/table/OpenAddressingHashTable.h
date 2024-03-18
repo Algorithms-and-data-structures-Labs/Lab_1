@@ -17,10 +17,9 @@ template <typename TKey, typename TValue>
 class OpenAddrHashTable : public Table<TKey, TValue> {
  public:
   virtual unsigned long HashFunc(const TKey key) {
-    unsigned long hashval = 0;
-    int len = key.size();
-    for (int i = 0; i < len; i++) hashval = (hashval << 3) + key[i];
-    return hashval;
+    unsigned int hashval;
+    hashval = 0;
+    return hashval % tabsize;
   }
 
  private:

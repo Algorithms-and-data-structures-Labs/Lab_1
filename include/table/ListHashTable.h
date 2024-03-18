@@ -15,14 +15,13 @@ template <typename TKey, typename TValue>
 class ListHashTable : public Table<TKey, TValue> {
  public:
   virtual unsigned long HashFunc(const TKey key) {
-    unsigned long hashval = 0;
-    int len = key.size();
-    for (int i = 0; i < len; ++i) hashval = (hashval << 3) + key[i];
-    return hashval;
+    unsigned long hashval;
+    hashval = 0;
+    return hashval % tabsize;
   }
 
  protected:
-  int TabSize;
+  int tabsize;
   int CurList;
   std::list<TabRecord<TKey, TValue>> *pList;
   typename std::list<TabRecord<TKey, TValue>>::iterator startChain;
@@ -30,9 +29,9 @@ class ListHashTable : public Table<TKey, TValue> {
  public:
   ListHashTable(int size) {
     pList = new std::list<TabRecord<TKey, TValue>>[size];
-    TabSize = size;
+    tabsize = size;
     CurList = 0;
-    for (int i = 0; i < TabSize; i++)
+    for (int i = 0; i < tabsize; i++)
       pList[i] = std::list<TabRecord<TKey, TValue>>();
   }
 
@@ -41,7 +40,7 @@ class ListHashTable : public Table<TKey, TValue> {
 
   TValue *Find(TKey k) override {
     TabRecord<TKey, TValue> *tmp = nullptr;
-    CurList = HashFunc(k) % TabSize;
+    CurList = HashFunc(k) % tabsize;
     std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
     for (auto &rec : *lst) {
       if (rec.key == k) {
@@ -55,15 +54,17 @@ class ListHashTable : public Table<TKey, TValue> {
   }
 
   void Insert(TKey k, TValue pVal) override {
-    CurList = HashFunc(k) % TabSize;
+    CurList = HashFunc(k) % tabsize;
     std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
+
     TValue *val = new TValue(pVal);
     TabRecord<TKey, TValue> record(k, val);
+
     lst->push_back(record);
   }
 
   void Delete(TKey k) override {
-    CurList = HashFunc(k) % TabSize;
+    CurList = HashFunc(k) % tabsize;
     std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
     for (auto it = lst->begin(); it != lst->end(); ++it) {
       if (it->key == k) {
@@ -85,7 +86,7 @@ class ListHashTable : public Table<TKey, TValue> {
     return !IsTabEnded();
   }
 
-  int IsTabEnded() const override { return CurList >= TabSize; }
+  int IsTabEnded() const override { return CurList >= tabsize; }
 
   int GoNext() override {
     startChain++;
@@ -104,16 +105,16 @@ class ListHashTable : public Table<TKey, TValue> {
   }
 
   TKey GetKey() const override {
-    if (CurList == TabSize) {
+    if (CurList >= tabsize) {
       throw std::out_of_range("No key at this position");
     }
-    return (pList + CurList)->front().key;
+    return pList[CurList].back().key;
   }
 
   TValue GetValuePtr() const override {
-    if (CurList == TabSize) {
+    if (CurList == tabsize) {
       throw std::out_of_range("No value at this position");
     }
-    return *(pList + CurList)->front().value;
+    return *(pList + CurList)->back().value;
   }
 };
