@@ -5,7 +5,6 @@
 #include <locale>
 #include <string>
 
-using namespace std;
 template <typename TKey, typename TValue>
 struct TabRecord {
   TKey key;

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <stack>
 
-using namespace std;
 template <typename TKey, typename TValue>
 struct TreeNode {
   TKey key;
