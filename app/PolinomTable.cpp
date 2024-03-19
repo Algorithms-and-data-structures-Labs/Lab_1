@@ -4,30 +4,51 @@
 
 void GetTablest(AllTable<string, std::vector<int>> tab) {
   system("CLS");
-  std::cout << "ArrayTable"
-            << "  "
-            << "ListTable"
-            << "  "
-            << "ListHashTable"
-            << "  "
-            << "OpenAddrHashTable"
-            << "  "
-            << "SortArrayTable"
-            << "  "
-            << "TreeTable"
-            << "  ";
-  std::cout << "\n";
+  std::vector<std::vector<std::vector<int>>> pols;
+  std::vector<std::vector<std::string>> keys;
+  int c = 0;
   for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
     std::vector<std::vector<int>> a;
     std::vector<string> a1;
     a = tab.GetValuePtr();
     a1 = tab.GetKey();
-    for (int i = 0; i < 6; i++) {
-      TPolinom pol(a[i]);
-      std::cout << a1[i] << "  " << pol.ToString() << "     ";
-    }
-    std::cout << "\n";
+    pols.push_back(a);
+    keys.push_back(a1);
+    c++;
   }
+   for (int i = 0; i < 6; i++) {
+    switch (i) {
+      case 0:
+        std::cout << "ArrayTable"
+                  << "\n\n";
+        break;
+      case 1:
+        std::cout << "ListTable"
+                  << "\n\n";
+        break;
+      case 2:
+        std::cout << "ListHashTable"
+                  << "\n\n";
+        break;
+      case 3:
+        std::cout << "OpenAddrHashTable"
+                  << "\n\n";
+        break;
+      case 4:
+        std::cout << "SortArrayTable"
+                  << "\n\n";
+        break;
+      case 5:
+        std::cout << "TreeTable"
+                  << "\n\n";
+        break;
+     }
+     for (int j = 0; j < c; j++) {
+       TPolinom pol(pols[j][i]);
+       std::cout << keys[j][i] << "  " << pol.ToString() << "     ";
+       std::cout << "\n\n";
+     }
+   }
 }
 
 int CheckMenu() {
