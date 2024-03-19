@@ -26,7 +26,7 @@ class TPolinom : public THeadList<TMonom> {
   string ToString();
 };
 
-TPolinom::TPolinom() : THeadList<TMonom>::THeadList(){length = 0;}
+TPolinom::TPolinom() : THeadList<TMonom>::THeadList() { length = 0; }
 TPolinom::TPolinom(TPolinom& other) {
   int tmp = other.GetLength();
   other.Reset();
