@@ -92,9 +92,10 @@ int main() {
         std::cout << "\n";
         cin >> str;
         std::vector<int> pol;
-        for (char p : str) {
-          int num = p - '0';
-          pol.push_back(num);
+        for (size_t i = 0; i < str.length(); i += 4) {
+          pol.push_back(str[i] - '0');
+          pol.push_back((str[i + 1] - '0') * 100 + (str[i + 2] - '0') * 10 +
+                        (str[i + 3] - '0'));
         }
         tab.Insert(key, pol);
         GetTablest(tab);

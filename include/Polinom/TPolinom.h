@@ -1,9 +1,9 @@
 #pragma once
-#include <iomanip>
-#include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #include "List/THeadList.h"
 #include "Polinom/TMonom.h"
@@ -11,7 +11,7 @@
 const int nonDisplayedZeros = 4;
 
 class TPolinom : public THeadList<TMonom> {
- public:
+public:
   TPolinom();
   TPolinom(TPolinom& other);
   TPolinom(vector<int> a);
@@ -20,82 +20,79 @@ class TPolinom : public THeadList<TMonom> {
   void AddMonom(TMonom newMonom);
   TPolinom MultMonom(TMonom monom);
   TPolinom AddPolinom(TPolinom& other);
-  TPolinom operator*(double coef);
+  TPolinom operator*(int coef);
   TPolinom operator*(TPolinom& other);
   bool operator==(TPolinom& other);
   string ToString();
 };
 
-TPolinom::TPolinom() : THeadList<TMonom>::THeadList() { length = 0; }
-
+TPolinom::TPolinom() :THeadList<TMonom>::THeadList(){length = 0;}
 TPolinom::TPolinom(TPolinom& other) {
-  int sz = other.GetLength();
+  int tmp = other.GetLength();
   other.Reset();
-  TMonom start;
-  start = other.GetCurrentItem();
+  TMonom first;
+  first = other.GetCurrentItem();
   other.GoNext();
-  InsertFirst(start);
+  InsertFirst(first);
   Reset();
-  for (int i = 1; i < sz; i++) {
-    TMonom a;
-    a = other.GetCurrentItem();
-    InsertNextCurrent(a);
+  for (int i = 1; i < tmp; i++) {
+    TMonom m;
+    m = other.GetCurrentItem();
+    InsertNCurrent(m);
     GoNext();
     other.GoNext();
   }
-  Reset();
-  other.Reset();
   pStop = nullptr;
 }
 
-TPolinom::TPolinom(vector<int> a) {
+TPolinom::TPolinom(vector<int> a) {	
   pStop = nullptr;
-  int sz1 = 2;
+  int c = 1;
   int i1 = 1;
-  int sz = static_cast<int>(a.size());
-  TMonom start(a[0], a[1], a[2], a[3]);
+  int sz = a.size();
+  TMonom start(a[0], a[1]);
   InsertFirst(start);
   Reset();
   TMonom mon;
-  mon = GetCurrentItem();
-  int ind = mon.checkMonom() % 1000;
-  for (int i = 4; i < sz; i += 4) {
-    int ind1 = a[i + 1] * 100 + a[i + 2] * 10 + a[i + 3];
+  for (int i = 2; i < sz; i += 2) {
+    int ind1 = a[i + 1];
+    mon = GetCurrentItem();
     Reset();
     TMonom first;
     first = GetCurrentItem();
-    int ind = first.checkMonom() % 1000;
+    int ind = first.GetIndex();
     if (ind1 > ind) {
-      InsertFirst(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
-      sz1++;
+      InsertFirst(TMonom(a[i], a[i + 1]));
+      c++;
     } else {
       while (ind1 < ind) {
-        if (i1 < sz1) {
+        if (i1 < c) {
           GoNext();
           i1++;
           mon = GetCurrentItem();
-          ind = mon.checkMonom() % 1000;
+          ind = mon.GetIndex();
         } else {
-          InsertLast(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
-          sz1++;
-          return;
+          InsertLast(TMonom(a[i], a[i + 1]));
+          c++;
+          break;
         }
       }
+
       if (ind == ind1) {
         if (i1 == 1) {
-          mon.SetCoef(mon.GetCoef() + a[i]);
-          InsertFirst(mon);
+          first.SetCoef(first.GetCoef() + a[i]);
+          InsertFirst(first);
           Reset();
           GoNext();
           DeleteCurrent();
         } else {
           mon.SetCoef(mon.GetCoef() + a[i]);
           DeleteCurrent();
-          InsertPrevCurrent(mon);
+          InsertPCurrent(mon);
         }
       } else {
-        InsertPrevCurrent(TMonom(a[i], a[i + 1], a[i + 2], a[i + 3]));
-        sz1++;
+        InsertPCurrent(TMonom(a[i], a[i + 1]));
+        c++;
       }
     }
     i1 = 1;
@@ -104,24 +101,9 @@ TPolinom::TPolinom(vector<int> a) {
 }
 
 TPolinom& TPolinom::operator=(TPolinom& other) {
-  int sz = GetLength();
-  Reset();
-  for (int i = 0; i < sz - 1; i++) {
-    DeleteFirst();
+  if (this != &other) {
+    THeadList<TMonom>::operator=(other);
   }
-  Reset();
-  other.Reset();
-  int sz1 = other.GetLength();
-  for (int i = 0; i < sz1; i++) {
-    TMonom a;
-    a = other.GetCurrentItem();
-    InsertNextCurrent(a);
-    GoNext();
-    other.GoNext();
-  }
-  DeleteFirst();
-  Reset();
-  other.Reset();
   return *this;
 }
 
@@ -131,8 +113,8 @@ void TPolinom::AddMonom(TMonom m) {
   Reset();
   TMonom mon;
   mon = GetCurrentItem();
-  int ind = mon.checkMonom() % 1000;
-  int ind1 = m.checkMonom() % 1000;
+  int ind = mon.GetIndex();
+  int ind1 = m.GetIndex();
   if (ind1 > ind)
     InsertFirst(m);
   else {
@@ -141,7 +123,7 @@ void TPolinom::AddMonom(TMonom m) {
         GoNext();
         i++;
         mon = GetCurrentItem();
-        ind = mon.checkMonom() % 1000;
+        ind = mon.GetIndex();
       } else {
         InsertLast(m);
         return;
@@ -151,26 +133,30 @@ void TPolinom::AddMonom(TMonom m) {
       if (mon.GetCoef() + m.GetCoef() != 0) {
         mon.SetCoef(mon.GetCoef() + m.GetCoef());
         DeleteCurrent();
-        InsertPrevCurrent(mon);
+        InsertPCurrent(mon);
       } else {
         DeleteCurrent();
       }
     } else {
-      InsertPrevCurrent(m);
+      InsertPCurrent(m);
     }
   }
   Reset();
 }
 
-TPolinom TPolinom::MultMonom(TMonom monom) {
-  TPolinom result;
-  return result;
-}
-
 TPolinom& TPolinom::operator+(TPolinom& other) {
-  TPolinom result(*this);
-  result.AddPolinom(other);
-  return result;
+  TPolinom* result = new TPolinom(*this);
+  TPolinom tempOther(other);
+
+  int sz = tempOther.GetLength();
+  tempOther.Reset();
+  for (int i = 0; i < sz; i++) {
+    TMonom a = tempOther.GetCurrentItem();
+    result->AddMonom(a);
+    tempOther.GoNext();
+  }
+
+  return *result;
 }
 
 TPolinom TPolinom::AddPolinom(TPolinom& other) {
@@ -183,28 +169,9 @@ TPolinom TPolinom::AddPolinom(TPolinom& other) {
     res.AddMonom(a);
     other.GoNext();
   }
+
   return res;
 }
-
-TPolinom TPolinom::operator*(double coef) {
-  TPolinom result(*this);
-  result.Reset();
-  TMonom mon;
-  int sz = result.GetLength();
-  for (int i = 0; i < sz; i++) {
-    mon = result.GetCurrentItem();
-    mon.SetCoef(mon.GetCoef() * coef);
-    result.DeleteCurrent();
-    result.InsertPrevCurrent(mon);
-  }
-  return result;
-}
-
-TPolinom TPolinom::operator*(TPolinom& other) {
-  TPolinom result;
-  return result;
-}
-
 bool TPolinom::operator==(TPolinom& other) {
   int sz = other.GetLength();
   if (this->GetLength() != other.GetLength()) {
@@ -226,6 +193,7 @@ bool TPolinom::operator==(TPolinom& other) {
   return true;
 }
 
+
 string TPolinom::ToString() {
   string result;
   int sz = GetLength();
@@ -234,19 +202,39 @@ string TPolinom::ToString() {
     TMonom a;
     a = GetCurrentItem();
     double A = a.GetCoef();
-    std::ostringstream oss;
-    oss << std::setprecision(5) << A;
+    std::ostringstream o;
+    o << std::setprecision(3) << A;
     int ind = a.GetIndex();
-    result += oss.str();
-    result += "X";
+    result += o.str();
+    result += "x^";
     result += std::to_string((ind - ind % 100) / 100);
-    result += "Y";
+    result += "y^";
     result += std::to_string(((ind % 100) - (ind % 10)) / 10);
-    result += "Z";
+    result += "z^";
     result += std::to_string(ind % 10);
     if (i != sz - 1) result += " + ";
     if (i < sz - 1) GoNext();
   }
   Reset();
+  return result;
+}
+
+TPolinom TPolinom::operator*(int coef) {
+  Reset();
+  for (int i = 0; i < GetLength(); i++) {
+    TMonom currMonom = GetCurrentItem();
+    currMonom.SetCoef(currMonom.GetCoef() * coef);
+    SetCurrentItem(currMonom);
+    GoNext();
+  }
+  return *this;
+}
+
+TPolinom TPolinom::operator*(TPolinom& other) {
+  TPolinom result;
+  return result;
+}
+TPolinom TPolinom::MultMonom(TMonom monom) {
+  TPolinom result;
   return result;
 }
