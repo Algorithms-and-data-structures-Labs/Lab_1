@@ -1,9 +1,9 @@
 #pragma once
-#include <string>
-#include <vector>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <iomanip>
+#include <string>
+#include <vector>
 
 #include "List/THeadList.h"
 #include "Polinom/TMonom.h"
@@ -11,7 +11,7 @@
 const int nonDisplayedZeros = 4;
 
 class TPolinom : public THeadList<TMonom> {
-public:
+ public:
   TPolinom();
   TPolinom(TPolinom& other);
   TPolinom(vector<int> a);
@@ -26,7 +26,7 @@ public:
   string ToString();
 };
 
-TPolinom::TPolinom() :THeadList<TMonom>::THeadList(){length = 0;}
+TPolinom::TPolinom() : THeadList<TMonom>::THeadList(){length = 0;}
 TPolinom::TPolinom(TPolinom& other) {
   int tmp = other.GetLength();
   other.Reset();
@@ -45,7 +45,7 @@ TPolinom::TPolinom(TPolinom& other) {
   pStop = nullptr;
 }
 
-TPolinom::TPolinom(vector<int> a) {	
+TPolinom::TPolinom(vector<int> a) {
   pStop = nullptr;
   int c = 1;
   int i1 = 1;
@@ -172,6 +172,7 @@ TPolinom TPolinom::AddPolinom(TPolinom& other) {
 
   return res;
 }
+
 bool TPolinom::operator==(TPolinom& other) {
   int sz = other.GetLength();
   if (this->GetLength() != other.GetLength()) {
@@ -192,7 +193,6 @@ bool TPolinom::operator==(TPolinom& other) {
   }
   return true;
 }
-
 
 string TPolinom::ToString() {
   string result;

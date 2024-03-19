@@ -1,13 +1,12 @@
 #pragma once
-#include "List/TNode.h"
-
 #include <iostream>
+
+#include "List/TNode.h"
 using namespace std;
 
 template<class T>
-class TList
-{
-protected:
+class TList {
+ protected:
   TNode<T>* pFirst;
   TNode<T>* pCurr;
   TNode<T>* pPrev;
@@ -15,7 +14,7 @@ protected:
   TNode<T>* pStop;
   int length;
 
-public:
+ public:
   TList();
   ~TList();
   int GetLength() { return length; }
@@ -43,12 +42,11 @@ TList<T>::TList() {
 }
 
 template <class T>
-TList<T>::~TList(){}
+TList<T>::~TList() {}
 
 template <class T>
 bool TList<T>::IsEmpty() {
-  if (length == 0)
-    return true;
+  if (length == 0) return true;
   return false;
 }
 
@@ -141,7 +139,7 @@ void TList<T>::DeleteCurrent() {
     if (pCurr == pStop) {
       pStop = pPrev;
     }
-  }	
+  }
 }
 
 template <class T>
@@ -150,8 +148,6 @@ T TList<T>::GetCurrentItem() {
   if (pCurr == nullptr) return T();
   return pCurr->val;
 }
-
-
 
 template <class T>
 void TList<T>::GoNext() {
@@ -163,7 +159,6 @@ template <class T>
 void TList<T>::Reset() {
   pCurr = pFirst;
   pPrev = nullptr;
-
 }
 
 template <class T>

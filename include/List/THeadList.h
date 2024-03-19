@@ -6,6 +6,7 @@ template <class T>
 class THeadList : public TList<T> {
  protected:
   TNode<T>* pHead;
+
  public:
   THeadList();
   ~THeadList();

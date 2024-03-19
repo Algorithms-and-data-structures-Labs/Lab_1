@@ -1,6 +1,5 @@
 #pragma once
-struct TMonom
-{
+struct TMonom {
   double coef;
   int index;
 
