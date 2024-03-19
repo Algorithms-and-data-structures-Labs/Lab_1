@@ -1,1 +1,1 @@
-add_executable(app app.cpp)
+add_executable(PolinomTableSample PolinomTable.cpp)
