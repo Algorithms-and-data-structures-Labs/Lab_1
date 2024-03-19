@@ -16,7 +16,7 @@ void GetTablest(AllTable<string, std::vector<int>> tab) {
     keys.push_back(a1);
     c++;
   }
-   for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 6; i++) {
     switch (i) {
       case 0:
         std::cout << "ArrayTable"
@@ -42,13 +42,13 @@ void GetTablest(AllTable<string, std::vector<int>> tab) {
         std::cout << "TreeTable"
                   << "\n\n";
         break;
-     }
-     for (int j = 0; j < c; j++) {
-       TPolinom pol(pols[j][i]);
-       std::cout << keys[j][i] << "  " << pol.ToString() << "     ";
-       std::cout << "\n\n";
-     }
-   }
+    }
+    for (int j = 0; j < c; j++) {
+      TPolinom pol(pols[j][i]);
+      std::cout << keys[j][i] << "  " << pol.ToString() << "     ";
+      std::cout << "\n\n";
+    }
+  }
 }
 
 int CheckMenu() {
