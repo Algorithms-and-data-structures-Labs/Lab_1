@@ -1,4 +1,5 @@
 #include <table/alltable.h>
+
 #include "Polinom/TPolinom.h"
 
 void GetTablest(AllTable<string, std::vector<int>> tab) {
