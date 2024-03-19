@@ -33,6 +33,7 @@ class ArrayTable : public Table<TKey, TValue> {
     TValue* newValue = new TValue(value);
     TabRec tab = {key, newValue};
     data.push_back(tab);
+
     this->count++;
   }
 
