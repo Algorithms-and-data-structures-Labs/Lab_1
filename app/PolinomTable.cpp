@@ -92,7 +92,7 @@ int main() {
         GetTablest(tab);
         std::cout << "\n\n";
         TPolinom pol(b[0]);
-        std::cout << "Your result:  "<< pol.ToString();
+        std::cout << "Your result:  " << pol.ToString();
         std::cout << "\n\n\n";
         menu = CheckMenu();
         break;
