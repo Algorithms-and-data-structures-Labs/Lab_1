@@ -10,9 +10,10 @@ struct TreeNode {
   TKey key;
   TValue* value;
   TreeNode *left, *right;
+  int height;
 
   TreeNode(TKey key, TValue* value, TreeNode* l, TreeNode* r)
-      : key(key), value(value), left(l), right(r) {}
+      : key(key), value(value), left(l), right(r), height(1) {}
   TreeNode* GetLeft() const { return left; }
   TreeNode* GetRight() const { return right; }
 };
@@ -28,11 +29,7 @@ class TreeTable : public Table<TKey, TValue> {
 
  public:
   TreeTable()
-      : Table<TKey, TValue>(),
-        root(nullptr),
-        curpos(0),
-        cur(nullptr),
-        ref(nullptr) {}
+      : Table<TKey, TValue>(),root(nullptr),curpos(0),cur(nullptr), ref(nullptr) {}
   ~TreeTable() {}
 
   bool IsFull() const override { return false; }
@@ -57,79 +54,46 @@ class TreeTable : public Table<TKey, TValue> {
     if (Find(key) != nullptr) {
       return;
     }
-    TreeNode<TKey, TValue>* node = root;
-    TreeNode<TKey, TValue>** ref = &root;
-    while (node != nullptr) {
-      if (node->key == key) {
-        delete node->value;
-        node->value = new TValue(d);
-        return;
-      }
-      if (node->key < key) {
-        ref = &node->right;
-        node = node->right;
-      } else {
-        ref = &node->left;
-        node = node->left;
-      }
-    }
-    *ref = new TreeNode<TKey, TValue>(key, new TValue(d), nullptr, nullptr);
-    count++;
+    root = InsertRecursive(root, key, d);
+    this->count++;
   }
 
   void Delete(TKey k) override {
     if (root == nullptr) return;
-
-    if (Find(k) != nullptr) {
-      TreeNode<TKey, TValue>* node = *ref;
-
-      if (node->left == nullptr && node->right == nullptr) {
-        *ref = nullptr;
-      } else if (node->left == nullptr) {
-        *ref = node->right;
-      } else if (node->right == nullptr) {
-        *ref = node->left;
-      } else {
-        TreeNode<TKey, TValue>** tmp = &node->left;
-        while ((*tmp)->right != nullptr) {
-          tmp = &((*tmp)->right);
-        }
-        node->key = (*tmp)->key;
-        delete node->value;
-        node->value = (*tmp)->value;
-        TreeNode<TKey, TValue>* toDelete = *tmp;
-        *tmp = (*tmp)->left;
-        delete toDelete;
-      }
-      count--;
-    }
+    root = DeleteRecursive(root, k);
+    this->count--;
   }
 
   int Reset() override {
-    TreeNode<TKey, TValue>* node = cur = root;
-    while (!st.empty()) st.pop();
-    curpos = 0;
-    while (node != nullptr) {
-      st.push(node);
-      cur = node;
-      node = node->GetLeft();
+    while (!st.empty()) {
+      st.pop();
     }
+    curpos = 0;
+    cur = root;
     return IsTabEnded();
   }
 
   int IsTabEnded() const override { return curpos >= count; }
 
   int GoNext() override {
-    st.pop();
-    TreeNode<TKey, TValue>* node = cur->right;
-    while (node && !IsTabEnded()) {
-      st.push(node);
-      node = node->left;
-    }
-    if (!st.empty()) {
+    if (cur == nullptr && !st.empty()) {
       cur = st.top();
-    } else
-      cur = nullptr;
+      st.pop();
+      return 0;
+    } else if (cur != nullptr) {
+      if (cur->right != nullptr) {
+        cur = cur->right;
+        while (cur->left != nullptr) {
+          st.push(cur);
+          cur = cur->left;
+        }
+        return 0;
+      } else {
+        cur = nullptr;
+        return 0;
+      }
+    }
+
     curpos++;
     return IsTabEnded();
   }
@@ -149,4 +113,119 @@ class TreeTable : public Table<TKey, TValue> {
       return TValue();
     }
   }
-};
+  TreeNode<TKey, TValue>* RotateLeft(TreeNode<TKey, TValue>* node) {
+    TreeNode<TKey, TValue>* newRoot = node->right;
+    node->right = newRoot->left;
+    newRoot->left = node;
+    return newRoot;
+  }
+
+  TreeNode<TKey, TValue>* RotateRight(TreeNode<TKey, TValue>* node) {
+    TreeNode<TKey, TValue>* newRoot = node->left;
+    node->left = newRoot->right;
+    newRoot->right = node;
+    return newRoot;
+  }
+
+  int Height(TreeNode<TKey, TValue>* node) {
+    if (node == nullptr) return 0;
+    return /*1 +*/ max(Height(node->left), Height(node->right));
+  }
+
+  int BalanceFactor(TreeNode<TKey, TValue>* node) {
+    if (node == nullptr) return 0;
+    return Height(node->right) - Height(node->left);
+  }
+
+  TreeNode<TKey, TValue>* InsertRecursive(TreeNode<TKey, TValue>* node,TKey key, TValue d) {
+    if (node == nullptr) {return new TreeNode<TKey, TValue>(key, new TValue(d), nullptr, nullptr);}
+
+    if (key < node->key) {
+      node->left = InsertRecursive(node->left, key, d);
+    } else if (key > node->key) {
+      node->right = InsertRecursive(node->right, key, d);
+    } else {
+      delete node->value;
+      node->value = new TValue(d);
+      return node;
+    }
+
+    int balance = BalanceFactor(node);
+
+    if (balance > 1 && key < node->left->key) {
+      return RotateRight(node);
+    }
+
+    if (balance < -1 && key > node->right->key) {
+      return RotateLeft(node);
+    }
+
+    if (balance > 1 && key > node->left->key) {
+      node->left = RotateLeft(node->left);
+      return RotateRight(node);
+    }
+
+    if (balance < -1 && key < node->right->key) {
+      node->right = RotateRight(node->right);
+      return RotateLeft(node);
+    }
+
+    return node;
+  }
+
+  TreeNode<TKey, TValue>* DeleteRecursive(TreeNode<TKey, TValue>* node,TKey k) {
+    if (node == nullptr) return nullptr;
+
+    if (k < node->key) {
+      node->left = DeleteRecursive(node->left, k);
+    } else if (k > node->key) {
+      node->right = DeleteRecursive(node->right, k);
+    } else {
+      if (node->left == nullptr || node->right == nullptr) {
+        TreeNode<TKey, TValue>* temp = (node->left != nullptr) ? node->left : node->right;
+        if (temp == nullptr) {
+          temp = node;
+          node = nullptr;
+        } else {
+          *node = *temp;
+        }
+        delete temp;
+      } else {
+        TreeNode<TKey, TValue>* temp = FindMin(node->right);
+        node->key = temp->key;
+        node->value = temp->value;
+        node->right = DeleteRecursive(node->right, temp->key);
+      }
+    }
+
+    if (node == nullptr) return nullptr;
+
+    int balance = BalanceFactor(node);
+
+    if (balance > 1 && BalanceFactor(node->right) >= 0) {
+      return RotateLeft(node);
+    }
+
+    if (balance < -1 && BalanceFactor(node->left) <= 0) {
+      return RotateRight(node);
+    }
+
+    if (balance > 1 && BalanceFactor(node->right) < 0) {
+      node->right = RotateRight(node->right);
+      return RotateLeft(node);
+    }
+
+    if (balance < -1 && BalanceFactor(node->left) > 0) {
+      node->left = RotateLeft(node->left);
+      return RotateRight(node);
+    }
+    return node;
+  }
+
+  TreeNode<TKey, TValue>* FindMin(TreeNode<TKey, TValue>* node) {
+    while (node->left != nullptr) {
+      node = node->left;
+    }
+    return node;
+  }
+  };
