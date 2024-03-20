@@ -20,7 +20,14 @@ ref class Table : public System::Windows::Forms::Form {
  private:
   AllTable<string, TPolinom>* allTables;
   AllTable<string, string>* StTable;
-  ListTable<string, TPolinom>* listt;
+  ListTable<string, TPolinom>* listTable;
+  ArrayTable<string, TPolinom>* arrayTable;
+  TreeTable<string, TPolinom>* treeTable;
+  ListHashTable<string, TPolinom>* listhashTable;
+  OpenAddrHashTable<string, TPolinom>* openAddrHashTable;
+  SortArrayTable<string, TPolinom>* sortArrayTable;
+
+  int lT, aT, tT, lhT, oahT, saT;
  private:
    System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
 
@@ -29,12 +36,6 @@ ref class Table : public System::Windows::Forms::Form {
 
  private:
   System::Windows::Forms::DataGridView ^ dataGridView2;
-
- private:
-
-
- private:
-
 
  private:
   System::Windows::Forms::Label ^ label2;
@@ -113,25 +114,26 @@ ref class Table : public System::Windows::Forms::Form {
    System::Windows::Forms::TextBox ^ textBox3;
 
   private:
-   System::Windows::Forms::TextBox ^ textBox4;
-
- private:
-  
-
+   System::Windows::Forms::ComboBox ^ comboBox1;
 
   private:
+   System::Windows::Forms::Label ^ label8;
 
+  private:
+   System::Windows::Forms::TextBox ^ textBox4;
 
- private:
-
-  int i;
  public:
   Table(void) {
     InitializeComponent();
     allTables = new AllTable<string, TPolinom>();
     StTable = new AllTable<string, string>();
-    listt = new ListTable<string, TPolinom>();
-    i = 1;
+    listTable = new ListTable<string, TPolinom>();
+    arrayTable = new ArrayTable<string, TPolinom>();
+    treeTable = new TreeTable<string, TPolinom>();
+    listhashTable = new ListHashTable<string, TPolinom>(25);
+    openAddrHashTable = new OpenAddrHashTable<string, TPolinom>(25, 2);
+    sortArrayTable = new SortArrayTable<string, TPolinom>();
+    aT = lT = tT = lhT = oahT = saT = 1;
   }
 
  protected:
@@ -204,6 +206,8 @@ ref class Table : public System::Windows::Forms::Form {
     this->button3 = (gcnew System::Windows::Forms::Button());
     this->textBox3 = (gcnew System::Windows::Forms::TextBox());
     this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+    this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+    this->label8 = (gcnew System::Windows::Forms::Label());
     (cli::safe_cast<System::ComponentModel::ISupportInitialize ^>(
          this->dataGridView1))
         ->BeginInit();
@@ -257,7 +261,7 @@ ref class Table : public System::Windows::Forms::Form {
     //
     // button1
     //
-    this->button1->Location = System::Drawing::Point(15, 604);
+    this->button1->Location = System::Drawing::Point(225, 585);
     this->button1->Name = L"button1";
     this->button1->Size = System::Drawing::Size(160, 23);
     this->button1->TabIndex = 1;
@@ -268,14 +272,14 @@ ref class Table : public System::Windows::Forms::Form {
     //
     // textBox1
     //
-    this->textBox1->Location = System::Drawing::Point(12, 576);
+    this->textBox1->Location = System::Drawing::Point(226, 557);
     this->textBox1->Name = L"textBox1";
     this->textBox1->Size = System::Drawing::Size(274, 22);
     this->textBox1->TabIndex = 2;
     //
     // button2
     //
-    this->button2->Location = System::Drawing::Point(15, 632);
+    this->button2->Location = System::Drawing::Point(225, 614);
     this->button2->Name = L"button2";
     this->button2->Size = System::Drawing::Size(160, 23);
     this->button2->TabIndex = 3;
@@ -299,7 +303,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView2->Columns->AddRange(
         gcnew cli::array<System::Windows::Forms::DataGridViewColumn ^>(2){
             this->Column2, this->Column3});
-    this->dataGridView2->Location = System::Drawing::Point(422, 12);
+    this->dataGridView2->Location = System::Drawing::Point(464, 12);
     this->dataGridView2->Name = L"dataGridView2";
     this->dataGridView2->RowHeadersWidth = 51;
     this->dataGridView2->RowTemplate->Height = 24;
@@ -334,7 +338,7 @@ ref class Table : public System::Windows::Forms::Form {
     // label3
     //
     this->label3->AutoSize = true;
-    this->label3->Location = System::Drawing::Point(737, 246);
+    this->label3->Location = System::Drawing::Point(779, 249);
     this->label3->Name = L"label3";
     this->label3->Size = System::Drawing::Size(63, 16);
     this->label3->TabIndex = 7;
@@ -349,7 +353,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView3->Columns->AddRange(
         gcnew cli::array<System::Windows::Forms::DataGridViewColumn ^>(2){
             this->Column4, this->Column5});
-    this->dataGridView3->Location = System::Drawing::Point(829, 12);
+    this->dataGridView3->Location = System::Drawing::Point(903, 12);
     this->dataGridView3->Name = L"dataGridView3";
     this->dataGridView3->RowHeadersWidth = 51;
     this->dataGridView3->RowTemplate->Height = 24;
@@ -373,11 +377,13 @@ ref class Table : public System::Windows::Forms::Form {
     // label4
     //
     this->label4->AutoSize = true;
-    this->label4->Location = System::Drawing::Point(1112, 246);
+    this->label4->Location = System::Drawing::Point(1186, 249);
     this->label4->Name = L"label4";
     this->label4->Size = System::Drawing::Size(95, 16);
     this->label4->TabIndex = 9;
     this->label4->Text = L"ListHashTable";
+    this->label4->Click +=
+        gcnew System::EventHandler(this, &Table::label4_Click);
     //
     // dataGridView4
     //
@@ -415,7 +421,7 @@ ref class Table : public System::Windows::Forms::Form {
         gcnew cli::array<System::Windows::Forms::DataGridViewColumn ^>(2){
             this->dataGridViewTextBoxColumn1,
             this->dataGridViewTextBoxColumn2});
-    this->dataGridView5->Location = System::Drawing::Point(422, 277);
+    this->dataGridView5->Location = System::Drawing::Point(464, 277);
     this->dataGridView5->Name = L"dataGridView5";
     this->dataGridView5->RowHeadersWidth = 51;
     this->dataGridView5->RowTemplate->Height = 24;
@@ -444,7 +450,7 @@ ref class Table : public System::Windows::Forms::Form {
         gcnew cli::array<System::Windows::Forms::DataGridViewColumn ^>(2){
             this->dataGridViewTextBoxColumn3,
             this->dataGridViewTextBoxColumn4});
-    this->dataGridView6->Location = System::Drawing::Point(829, 277);
+    this->dataGridView6->Location = System::Drawing::Point(903, 277);
     this->dataGridView6->Name = L"dataGridView6";
     this->dataGridView6->RowHeadersWidth = 51;
     this->dataGridView6->RowTemplate->Height = 24;
@@ -477,7 +483,7 @@ ref class Table : public System::Windows::Forms::Form {
     // label6
     //
     this->label6->AutoSize = true;
-    this->label6->Location = System::Drawing::Point(545, 523);
+    this->label6->Location = System::Drawing::Point(743, 520);
     this->label6->Name = L"label6";
     this->label6->Size = System::Drawing::Size(99, 16);
     this->label6->TabIndex = 14;
@@ -486,7 +492,7 @@ ref class Table : public System::Windows::Forms::Form {
     // label7
     //
     this->label7->AutoSize = true;
-    this->label7->Location = System::Drawing::Point(985, 520);
+    this->label7->Location = System::Drawing::Point(1209, 520);
     this->label7->Name = L"label7";
     this->label7->Size = System::Drawing::Size(72, 16);
     this->label7->TabIndex = 15;
@@ -503,7 +509,7 @@ ref class Table : public System::Windows::Forms::Form {
     //
     // button3
     //
-    this->button3->Location = System::Drawing::Point(15, 661);
+    this->button3->Location = System::Drawing::Point(225, 643);
     this->button3->Name = L"button3";
     this->button3->Size = System::Drawing::Size(160, 23);
     this->button3->TabIndex = 17;
@@ -514,23 +520,43 @@ ref class Table : public System::Windows::Forms::Form {
     //
     // textBox3
     //
-    this->textBox3->Location = System::Drawing::Point(422, 249);
+    this->textBox3->Location = System::Drawing::Point(464, 246);
     this->textBox3->Name = L"textBox3";
     this->textBox3->Size = System::Drawing::Size(290, 22);
     this->textBox3->TabIndex = 18;
     //
     // textBox4
     //
-    this->textBox4->Location = System::Drawing::Point(839, 249);
+    this->textBox4->Location = System::Drawing::Point(903, 246);
     this->textBox4->Name = L"textBox4";
     this->textBox4->Size = System::Drawing::Size(267, 22);
     this->textBox4->TabIndex = 19;
+    //
+    // comboBox1
+    //
+    this->comboBox1->FormattingEnabled = true;
+    this->comboBox1->Location = System::Drawing::Point(15, 585);
+    this->comboBox1->Name = L"comboBox1";
+    this->comboBox1->Size = System::Drawing::Size(121, 24);
+    this->comboBox1->TabIndex = 20;
+    this->comboBox1->Text = L"Все";
+    //
+    // label8
+    //
+    this->label8->AutoSize = true;
+    this->label8->Location = System::Drawing::Point(15, 563);
+    this->label8->Name = L"label8";
+    this->label8->Size = System::Drawing::Size(127, 16);
+    this->label8->TabIndex = 21;
+    this->label8->Text = L"Активная таблица";
     //
     // Table
     //
     this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
     this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
     this->ClientSize = System::Drawing::Size(1924, 1000);
+    this->Controls->Add(this->label8);
+    this->Controls->Add(this->comboBox1);
     this->Controls->Add(this->textBox4);
     this->Controls->Add(this->textBox3);
     this->Controls->Add(this->button3);
@@ -552,7 +578,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->Controls->Add(this->button1);
     this->Controls->Add(this->dataGridView1);
     this->Margin = System::Windows::Forms::Padding(4);
-    //this->Name = L"Table";
+    this->Name = L"Table";
     this->Text = L"Table";
     this->Load += gcnew System::EventHandler(this, &Table::Table_Load);
     (cli::safe_cast<System::ComponentModel::ISupportInitialize ^>(
@@ -595,19 +621,31 @@ ref class Table : public System::Windows::Forms::Form {
 
     return resultVector;
   }
-
+  System::Void AddPolinom(TPolinom p, Table){
  private:
   System::Void button1_Click(System::Object ^ sender, System::EventArgs ^ e) {
     string String_from_textbox =
         msclr::interop::marshal_as<string>(textBox1->Text);
-    
     TPolinom polinom(convertToVector(String_from_textbox));
-    listt->Insert(msclr::interop::marshal_as<string>(i.ToString()),
+
+    arrayTable->Insert(msclr::interop::marshal_as<string>(aT.ToString()),
                       polinom);
+    listTable->Insert(msclr::interop::marshal_as<string>(lT.ToString()),
+                      polinom);
+    listhashTable->Insert(msclr::interop::marshal_as<string>(lhT.ToString()),
+                      polinom);
+    openAddrHashTable->Insert(msclr::interop::marshal_as<string>(oahT.ToString()),
+                      polinom);
+    sortArrayTable->Insert(msclr::interop::marshal_as<string>(saT.ToString()),
+                      polinom);
+    treeTable->Insert(msclr::interop::marshal_as<string>(tT.ToString()),
+                      polinom);
+
+
     System::String ^ PolinomName =
-        msclr::interop::marshal_as<System::String ^>(listt->GetKey());
+        msclr::interop::marshal_as<System::String ^>(listTable->GetKey());
     System::String ^ PolinomText =
-        msclr::interop::marshal_as<System::String ^>(listt->GetValuePtr().ToString());
+        msclr::interop::marshal_as<System::String ^>(listTable->GetValuePtr().ToString());
     dataGridView1->Rows->Add(PolinomName, PolinomText);
     i++;
   }
@@ -652,5 +690,8 @@ ref class Table : public System::Windows::Forms::Form {
     StTable->Find(msclr::interop::marshal_as<string>(i.ToString()));
   
   }
+
+ private:
+  System::Void label4_Click(System::Object ^ sender, System::EventArgs ^ e) {}
 };
 }

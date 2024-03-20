@@ -67,10 +67,15 @@ class AllTable {
     return a;
   }
 
+<<<<<<< HEAD
   vector<int> IsTabEnded() const {
     vector<int> a;
+=======
+  int IsTabEnded() const {
+    std::vector<int> a;
+>>>>>>> origin/main
     for (int i = 0; i < 6; i++) a.push_back(tables[i]->IsTabEnded());
-    return a;
+    return a[0];
   }
 
   vector<int> GoNext() {

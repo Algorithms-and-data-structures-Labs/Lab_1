@@ -1,6 +1,5 @@
 #pragma once
-#include "TList.h"
-
+#include "List/TList.h"
 using namespace std;
 
 template <class T>
@@ -12,7 +11,6 @@ class THeadList : public TList<T> {
   THeadList();
   ~THeadList();
   void InsertFirst(T item);
-  void InsertLast(T item);
   void DeleteFirst();
 };
 
@@ -22,7 +20,7 @@ THeadList<T>::THeadList() {
   this->pFirst = pHead->pNext;
   this->pStop = new TNode<T>{};
   this->pLast = this->pStop;
-  this->pCurrent = this->pFirst;
+  this->pCurr = this->pFirst;
   this->length = 0;
 }
 
@@ -31,23 +29,16 @@ THeadList<T>::~THeadList() {}
 
 template <class T>
 void THeadList<T>::InsertFirst(T item) {
-  TNode<T>* newNode = new TNode<T>{item, nullptr};
-  newNode->pNext = this->pFirst;
-  this->pFirst = newNode;
-  this->length++;
-}
-
-template <class T>
-void THeadList<T>::InsertLast(T item) {
-  TNode<T>* newNode = new TNode<T>{item, nullptr};
-  this->pLast = newNode;
+  TNode<T>* nNode = new TNode<T>{item, nullptr};
+  nNode->pNext = this->pFirst;
+  this->pFirst = nNode;
   this->length++;
 }
 
 template <class T>
 void THeadList<T>::DeleteFirst() {
   if (this->IsEmpty()) {
-    throw "List is empty, nothing to delete.";
+    throw "List is empty";
   }
   TNode<T>* temp = this->pFirst;
   this->pFirst = this->pFirst->pNext;
