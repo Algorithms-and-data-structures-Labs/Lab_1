@@ -2,6 +2,6 @@
 
 template <class T>
 struct TNode {
-  T value;
+  T val;
   TNode* pNext;
 };
