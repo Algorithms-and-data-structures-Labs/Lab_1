@@ -621,7 +621,7 @@ ref class Table : public System::Windows::Forms::Form {
 
     return resultVector;
   }
-  System::Void AddPolinom(TPolinom p, Table){
+  //System::Void AddPolinom(TPolinom p, Table){
  private:
   System::Void button1_Click(System::Object ^ sender, System::EventArgs ^ e) {
     string String_from_textbox =
@@ -647,7 +647,6 @@ ref class Table : public System::Windows::Forms::Form {
     System::String ^ PolinomText =
         msclr::interop::marshal_as<System::String ^>(listTable->GetValuePtr().ToString());
     dataGridView1->Rows->Add(PolinomName, PolinomText);
-    i++;
   }
 
  private:
