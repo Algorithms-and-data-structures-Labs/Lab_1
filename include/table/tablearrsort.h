@@ -35,6 +35,7 @@ class SortArrayTable : public Table<TKey, TValue> {
     count++;
     sort(data.begin(), data.end(),
          [](const TabRec& a, const TabRec& b) { return a.key < b.key; });
+    currentIndex = data.size() - 1;
   }
 
   bool IsFull() const override { return size() >= TabMaxSize; }

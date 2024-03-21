@@ -9,6 +9,14 @@ TEST(TableArray, find_test1) {
   ASSERT_EQ(1, a);
 }
 
+TEST(TableArray, insertTest_Semyon) {
+  ArrayTable<int, int> arrtab;
+  arrtab.Insert(1, 1);
+  arrtab.Insert(2, 3);
+  int a = arrtab.GetValuePtr();
+  ASSERT_EQ(3, a);
+}
+
 TEST(TableArray, find_test2) {
   ArrayTable<int, int> arrtab;
   arrtab.Insert(1, 2);
