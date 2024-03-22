@@ -554,7 +554,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button7->Name = L"button7";
     this->button7->Size = System::Drawing::Size(196, 28);
     this->button7->TabIndex = 33;
-    this->button7->Text = L"calñ at a point";
+    this->button7->Text = L"calc at a point";
     this->button7->UseVisualStyleBackColor = true;
     this->button7->Click +=
         gcnew System::EventHandler(this, &Table::button7_Click);
