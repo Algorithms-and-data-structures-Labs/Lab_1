@@ -712,7 +712,7 @@ ref class Table : public System::Windows::Forms::Form {
       string PolinomText = pol.ToString();
       textbox->Text = msclr::interop::marshal_as<System::String ^>(PolinomText);
     } else {
-      textbox->Text = "Полином не найден";
+      textbox->Text = "Polinom not found";
     }
   }
  private:

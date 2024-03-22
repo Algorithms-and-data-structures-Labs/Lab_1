@@ -136,7 +136,7 @@ class TreeTable : public Table<TKey, TValue> {
 
   int Height(typename ::TreeNode<TKey, TValue>* node) {
     if (node == nullptr) return 0;
-    return /*1 +*/ max(Height(node->left), Height(node->right));
+    return max(Height(node->left), Height(node->right));
   }
 
   int BalanceFactor(typename ::TreeNode<TKey, TValue>* node) {
