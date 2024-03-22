@@ -1,9 +1,9 @@
 #pragma once
-#include <Polinom/TPolinom.h>
+#include <msclr\marshal_cppstd.h>
 #include "table\alltable.h"
 
-#include <msclr\marshal_cppstd.h>
 #include <sstream>
+#include <Polinom/TPolinom.h>
 
 namespace VisualTable2 {
 
@@ -14,6 +14,7 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
+
 public
 ref class Table : public System::Windows::Forms::Form {
  private:
@@ -23,6 +24,8 @@ ref class Table : public System::Windows::Forms::Form {
   ListHashTable<string, TPolinom>* listhashTable;
   OpenAddrHashTable<string, TPolinom>* openAddrHashTable;
   SortArrayTable<string, TPolinom>* sortArrayTable;
+
+
   int lT, aT, tT, lhT, oahT, saT;
  private:
    System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
@@ -150,6 +153,7 @@ ref class Table : public System::Windows::Forms::Form {
 
   private:
    System::Windows::Forms::Label ^ label10;
+
 
   private:
    System::Windows::Forms::TextBox ^ textBox4;
@@ -291,7 +295,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button1->Name = L"button1";
     this->button1->Size = System::Drawing::Size(160, 23);
     this->button1->TabIndex = 1;
-    this->button1->Text = L"Добавить Полином";
+    this->button1->Text = L"Add Polinom";
     this->button1->UseVisualStyleBackColor = true;
     this->button1->Click +=
         gcnew System::EventHandler(this, &Table::button1_Click);
@@ -303,7 +307,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button2->Name = L"button2";
     this->button2->Size = System::Drawing::Size(160, 23);
     this->button2->TabIndex = 3;
-    this->button2->Text = L"Удалить Полином";
+    this->button2->Text = L"Delete Polinom";
     this->button2->UseVisualStyleBackColor = true;
     this->button2->Click +=
         gcnew System::EventHandler(this, &Table::button2_Click);
@@ -461,7 +465,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button3->Name = L"button3";
     this->button3->Size = System::Drawing::Size(160, 23);
     this->button3->TabIndex = 17;
-    this->button3->Text = L"Найти Полином";
+    this->button3->Text = L"Find Polinom";
     this->button3->UseVisualStyleBackColor = true;
     this->button3->Click +=
         gcnew System::EventHandler(this, &Table::button3_Click);
@@ -481,7 +485,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->comboBox1->Name = L"comboBox1";
     this->comboBox1->Size = System::Drawing::Size(176, 24);
     this->comboBox1->TabIndex = 20;
-    this->comboBox1->Text = L"Все";
+    this->comboBox1->Text = L"All'";
     this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(
         this, &Table::comboBox1_SelectedIndexChanged);
     this->label8->AutoSize = true;
@@ -489,7 +493,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->label8->Name = L"label8";
     this->label8->Size = System::Drawing::Size(176, 16);
     this->label8->TabIndex = 21;
-    this->label8->Text = L"Активная таблица поиска";
+    this->label8->Text = L"Active Search table";
     this->textBox5->Location = System::Drawing::Point(12, 514);
     this->textBox5->Name = L"textBox5";
     this->textBox5->Size = System::Drawing::Size(235, 22);
@@ -507,7 +511,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->label9->Name = L"label9";
     this->label9->Size = System::Drawing::Size(110, 16);
     this->label9->TabIndex = 25;
-    this->label9->Text = L"Поиск по ключу";
+    this->label9->Text = L"key search";
     this->textBox8->Location = System::Drawing::Point(15, 646);
     this->textBox8->Name = L"textBox8";
     this->textBox8->Size = System::Drawing::Size(107, 22);
@@ -516,7 +520,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button4->Name = L"button4";
     this->button4->Size = System::Drawing::Size(107, 28);
     this->button4->TabIndex = 27;
-    this->button4->Text = L"Поиск";
+    this->button4->Text = L"Search";
     this->button4->UseVisualStyleBackColor = true;
     this->button4->Click +=
         gcnew System::EventHandler(this, &Table::button4_Click);
@@ -525,7 +529,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->label11->Name = L"label11";
     this->label11->Size = System::Drawing::Size(107, 16);
     this->label11->TabIndex = 29;
-    this->label11->Text = L"Введите ключи";
+    this->label11->Text = L"Input keys";
     this->textBox9->Location = System::Drawing::Point(589, 587);
     this->textBox9->Name = L"textBox9";
     this->textBox9->Size = System::Drawing::Size(180, 22);
@@ -534,7 +538,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button5->Name = L"button5";
     this->button5->Size = System::Drawing::Size(107, 28);
     this->button5->TabIndex = 31;
-    this->button5->Text = L"Сложить";
+    this->button5->Text = L"Sum";
     this->button5->UseVisualStyleBackColor = true;
     this->button5->Click +=
         gcnew System::EventHandler(this, &Table::button5_Click);
@@ -542,7 +546,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button6->Name = L"button6";
     this->button6->Size = System::Drawing::Size(196, 28);
     this->button6->TabIndex = 32;
-    this->button6->Text = L"Умножение на константу";
+    this->button6->Text = L"Mul by const";
     this->button6->UseVisualStyleBackColor = true;
     this->button6->Click +=
         gcnew System::EventHandler(this, &Table::button6_Click);
@@ -550,7 +554,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->button7->Name = L"button7";
     this->button7->Size = System::Drawing::Size(196, 28);
     this->button7->TabIndex = 33;
-    this->button7->Text = L"Вычисление в точке";
+    this->button7->Text = L"calс at a point";
     this->button7->UseVisualStyleBackColor = true;
     this->button7->Click +=
         gcnew System::EventHandler(this, &Table::button7_Click);
@@ -670,6 +674,7 @@ ref class Table : public System::Windows::Forms::Form {
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), p);
   }
 
+
   template <typename TableType>
   System::Void DelPolinom(TableType* table) {
     string String_from_textbox =
@@ -707,10 +712,9 @@ ref class Table : public System::Windows::Forms::Form {
       string PolinomText = pol.ToString();
       textbox->Text = msclr::interop::marshal_as<System::String ^>(PolinomText);
     } else {
-      textbox->Text = "Polinom not found";
+      textbox->Text = "Полином не найден";
     }
   }
-
  private:
   System::Void button1_Click(System::Object ^ sender, System::EventArgs ^ e) {
     
@@ -820,6 +824,7 @@ ref class Table : public System::Windows::Forms::Form {
     TPolinom* polPtr2 = arrayTable->Find(k2);
     TPolinom pol2 = *polPtr2;
     sum = pol1 + pol2;
+
     string PolinomText = sum.ToString();
     label10->Text = msclr::interop::marshal_as<String ^>(PolinomText);
     /*for (char c:inputText) {
@@ -889,6 +894,7 @@ ref class Table : public System::Windows::Forms::Form {
     AddPolinom(sum, treeTable, tT, dataGridView6);
     tT++;
     Refresh(treeTable, dataGridView6, tT);
+
   }
 
  private:
@@ -902,8 +908,10 @@ ref class Table : public System::Windows::Forms::Form {
     string y(1, c2);
     string z(1, c3);
     string k(1, c0);
+
     TPolinom* polPtr1 = arrayTable->Find(k);
     TPolinom pol1 = *polPtr1;
+
     double result =
         pol1.Evaluate(atof(x.c_str()), atof(y.c_str()), atof(z.c_str()));
     label10->Text = msclr::interop::marshal_as<String ^>(to_string(result));
