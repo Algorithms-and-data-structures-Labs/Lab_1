@@ -1,9 +1,9 @@
 #pragma once
-#include <msclr\marshal_cppstd.h>
+#include <Polinom/TPolinom.h>
 #include "table\alltable.h"
 
+#include <msclr\marshal_cppstd.h>
 #include <sstream>
-#include <Polinom/TPolinom.h>
 
 namespace VisualTable2 {
 
@@ -14,7 +14,6 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-
 public
 ref class Table : public System::Windows::Forms::Form {
  private:
@@ -24,8 +23,6 @@ ref class Table : public System::Windows::Forms::Form {
   ListHashTable<string, TPolinom>* listhashTable;
   OpenAddrHashTable<string, TPolinom>* openAddrHashTable;
   SortArrayTable<string, TPolinom>* sortArrayTable;
-
-
   int lT, aT, tT, lhT, oahT, saT;
  private:
    System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
@@ -154,14 +151,12 @@ ref class Table : public System::Windows::Forms::Form {
   private:
    System::Windows::Forms::Label ^ label10;
 
-
   private:
    System::Windows::Forms::TextBox ^ textBox4;
 
  public:
   Table(void) {
     InitializeComponent();
-
     listTable = new ListTable<string, TPolinom>();
     arrayTable = new ArrayTable<string, TPolinom>();
     treeTable = new TreeTable<string, TPolinom>();
@@ -675,12 +670,10 @@ ref class Table : public System::Windows::Forms::Form {
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), p);
   }
 
-
   template <typename TableType>
   System::Void DelPolinom(TableType* table) {
     string String_from_textbox =
         msclr::interop::marshal_as<string>(textBox1->Text);
-    
     table->Delete(String_from_textbox);
   }
 
@@ -701,7 +694,6 @@ ref class Table : public System::Windows::Forms::Form {
     } else {
       dataGridView->Rows->Clear();
     }
-    
   }
 
   template <typename TableType>
@@ -715,9 +707,10 @@ ref class Table : public System::Windows::Forms::Form {
       string PolinomText = pol.ToString();
       textbox->Text = msclr::interop::marshal_as<System::String ^>(PolinomText);
     } else {
-      textbox->Text = "Полином не найден";
+      textbox->Text = "Polinom not found";
     }
   }
+
  private:
   System::Void button1_Click(System::Object ^ sender, System::EventArgs ^ e) {
     
@@ -778,10 +771,7 @@ ref class Table : public System::Windows::Forms::Form {
   System::Void label7_Click(System::Object ^ sender, System::EventArgs ^ e) {}
 
  private:
-  System::Void button3_Click(System::Object ^ sender, System::EventArgs ^ e) {
-    
-  
-  }
+  System::Void button3_Click(System::Object ^ sender, System::EventArgs ^ e) {}
 
  private:
   System::Void label4_Click(System::Object ^ sender, System::EventArgs ^ e) {}
@@ -830,7 +820,6 @@ ref class Table : public System::Windows::Forms::Form {
     TPolinom* polPtr2 = arrayTable->Find(k2);
     TPolinom pol2 = *polPtr2;
     sum = pol1 + pol2;
-
     string PolinomText = sum.ToString();
     label10->Text = msclr::interop::marshal_as<String ^>(PolinomText);
     /*for (char c:inputText) {
@@ -862,7 +851,6 @@ ref class Table : public System::Windows::Forms::Form {
     AddPolinom(sum, treeTable, tT, dataGridView6);
     tT++;
     Refresh(treeTable, dataGridView6, tT);
-    
   }
 
  private:
@@ -901,7 +889,6 @@ ref class Table : public System::Windows::Forms::Form {
     AddPolinom(sum, treeTable, tT, dataGridView6);
     tT++;
     Refresh(treeTable, dataGridView6, tT);
-
   }
 
  private:
@@ -915,10 +902,8 @@ ref class Table : public System::Windows::Forms::Form {
     string y(1, c2);
     string z(1, c3);
     string k(1, c0);
-
     TPolinom* polPtr1 = arrayTable->Find(k);
     TPolinom pol1 = *polPtr1;
-
     double result =
         pol1.Evaluate(atof(x.c_str()), atof(y.c_str()), atof(z.c_str()));
     label10->Text = msclr::interop::marshal_as<String ^>(to_string(result));

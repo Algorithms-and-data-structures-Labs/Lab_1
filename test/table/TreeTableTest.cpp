@@ -99,5 +99,6 @@ TEST(TreeTable, getkey_test) {
   TreeTable<int, int> table;
   table.Insert(1, 1);
   table.Insert(2, 2);
-  ASSERT_EQ(table.GetKey(), 2);
+  table.Reset();
+  ASSERT_EQ(table.GetKey(), 1);
 }
