@@ -1,6 +1,11 @@
 #pragma once
 #include <msclr\marshal_cppstd.h>
-#include "table\alltable.h"
+#include <table/ListHashTable.h>
+#include <table/ListTable.h>
+#include <table/OpenAddressingHashTable.h>
+#include <table/TreeTable.h>
+#include <table/tablearr.h>
+#include <table/tablearrsort.h>
 
 #include <sstream>
 #include <Polinom/TPolinom.h>
@@ -24,8 +29,7 @@ ref class Table : public System::Windows::Forms::Form {
   ListHashTable<string, TPolinom>* listhashTable;
   OpenAddrHashTable<string, TPolinom>* openAddrHashTable;
   SortArrayTable<string, TPolinom>* sortArrayTable;
-
-
+  int count;
   int lT, aT, tT, lhT, oahT, saT;
  private:
    System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
@@ -107,9 +111,6 @@ ref class Table : public System::Windows::Forms::Form {
   System::Windows::Forms::DataGridViewTextBoxColumn ^ Polinom;
 
   private:
-   System::Windows::Forms::Button ^ button3;
-
-  private:
    System::Windows::Forms::TextBox ^ textBox3;
 
   private:
@@ -167,6 +168,7 @@ ref class Table : public System::Windows::Forms::Form {
     listhashTable = new ListHashTable<string, TPolinom>(25);
     openAddrHashTable = new OpenAddrHashTable<string, TPolinom>(25, 2);
     sortArrayTable = new SortArrayTable<string, TPolinom>();
+    count = 0;
     aT = lT = tT = lhT = oahT = saT = 1;
   }
 
@@ -233,7 +235,6 @@ ref class Table : public System::Windows::Forms::Form {
     this->label6 = (gcnew System::Windows::Forms::Label());
     this->label7 = (gcnew System::Windows::Forms::Label());
     this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-    this->button3 = (gcnew System::Windows::Forms::Button());
     this->textBox3 = (gcnew System::Windows::Forms::TextBox());
     this->textBox4 = (gcnew System::Windows::Forms::TextBox());
     this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
@@ -269,6 +270,9 @@ ref class Table : public System::Windows::Forms::Form {
          this->dataGridView6))
         ->BeginInit();
     this->SuspendLayout();
+    //
+    // dataGridView1
+    //
     this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::
         DataGridViewColumnHeadersHeightSizeMode::AutoSize;
     this->dataGridView1->Columns->AddRange(
@@ -283,14 +287,23 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView1->CellContentClick +=
         gcnew System::Windows::Forms::DataGridViewCellEventHandler(
             this, &Table::dataGridView1_CellContentClick);
+    //
+    // Column1
+    //
     this->Column1->HeaderText = L"Name";
     this->Column1->MinimumWidth = 6;
     this->Column1->Name = L"Column1";
     this->Column1->Width = 40;
+    //
+    // Polinom
+    //
     this->Polinom->HeaderText = L"Polinom";
     this->Polinom->MinimumWidth = 6;
     this->Polinom->Name = L"Polinom";
     this->Polinom->Width = 284;
+    //
+    // button1
+    //
     this->button1->Location = System::Drawing::Point(225, 585);
     this->button1->Name = L"button1";
     this->button1->Size = System::Drawing::Size(160, 23);
@@ -299,10 +312,16 @@ ref class Table : public System::Windows::Forms::Form {
     this->button1->UseVisualStyleBackColor = true;
     this->button1->Click +=
         gcnew System::EventHandler(this, &Table::button1_Click);
+    //
+    // textBox1
+    //
     this->textBox1->Location = System::Drawing::Point(226, 557);
     this->textBox1->Name = L"textBox1";
     this->textBox1->Size = System::Drawing::Size(274, 22);
     this->textBox1->TabIndex = 2;
+    //
+    // button2
+    //
     this->button2->Location = System::Drawing::Point(225, 614);
     this->button2->Name = L"button2";
     this->button2->Size = System::Drawing::Size(160, 23);
@@ -311,11 +330,17 @@ ref class Table : public System::Windows::Forms::Form {
     this->button2->UseVisualStyleBackColor = true;
     this->button2->Click +=
         gcnew System::EventHandler(this, &Table::button2_Click);
+    //
+    // label1
+    //
     this->label1->AutoSize = true;
     this->label1->Location = System::Drawing::Point(181, 652);
     this->label1->Name = L"label1";
     this->label1->Size = System::Drawing::Size(0, 16);
     this->label1->TabIndex = 4;
+    //
+    // dataGridView2
+    //
     this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::
         DataGridViewColumnHeadersHeightSizeMode::AutoSize;
     this->dataGridView2->Columns->AddRange(
@@ -327,14 +352,23 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView2->RowTemplate->Height = 24;
     this->dataGridView2->Size = System::Drawing::Size(378, 231);
     this->dataGridView2->TabIndex = 5;
+    //
+    // Column2
+    //
     this->Column2->HeaderText = L"Name";
     this->Column2->MinimumWidth = 6;
     this->Column2->Name = L"Column2";
     this->Column2->Width = 40;
+    //
+    // Column3
+    //
     this->Column3->HeaderText = L"Polinom";
     this->Column3->MinimumWidth = 6;
     this->Column3->Name = L"Column3";
     this->Column3->Width = 284;
+    //
+    // label2
+    //
     this->label2->AutoSize = true;
     this->label2->Location = System::Drawing::Point(325, 252);
     this->label2->Name = L"label2";
@@ -343,6 +377,9 @@ ref class Table : public System::Windows::Forms::Form {
     this->label2->Text = L"ArrTable";
     this->label2->Click +=
         gcnew System::EventHandler(this, &Table::label2_Click);
+    //
+    // label3
+    //
     this->label3->AutoSize = true;
     this->label3->Location = System::Drawing::Point(779, 249);
     this->label3->Name = L"label3";
@@ -351,6 +388,9 @@ ref class Table : public System::Windows::Forms::Form {
     this->label3->Text = L"ListTable";
     this->label3->Click +=
         gcnew System::EventHandler(this, &Table::label3_Click);
+    //
+    // dataGridView3
+    //
     this->dataGridView3->ColumnHeadersHeightSizeMode = System::Windows::Forms::
         DataGridViewColumnHeadersHeightSizeMode::AutoSize;
     this->dataGridView3->Columns->AddRange(
@@ -362,14 +402,23 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView3->RowTemplate->Height = 24;
     this->dataGridView3->Size = System::Drawing::Size(378, 231);
     this->dataGridView3->TabIndex = 8;
+    //
+    // Column4
+    //
     this->Column4->HeaderText = L"Name";
     this->Column4->MinimumWidth = 6;
     this->Column4->Name = L"Column4";
     this->Column4->Width = 40;
+    //
+    // Column5
+    //
     this->Column5->HeaderText = L"Polinom";
     this->Column5->MinimumWidth = 6;
     this->Column5->Name = L"Column5";
     this->Column5->Width = 284;
+    //
+    // label4
+    //
     this->label4->AutoSize = true;
     this->label4->Location = System::Drawing::Point(1186, 249);
     this->label4->Name = L"label4";
@@ -378,6 +427,9 @@ ref class Table : public System::Windows::Forms::Form {
     this->label4->Text = L"ListHashTable";
     this->label4->Click +=
         gcnew System::EventHandler(this, &Table::label4_Click);
+    //
+    // dataGridView4
+    //
     this->dataGridView4->ColumnHeadersHeightSizeMode = System::Windows::Forms::
         DataGridViewColumnHeadersHeightSizeMode::AutoSize;
     this->dataGridView4->Columns->AddRange(
@@ -389,14 +441,23 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView4->RowTemplate->Height = 24;
     this->dataGridView4->Size = System::Drawing::Size(378, 231);
     this->dataGridView4->TabIndex = 10;
+    //
+    // Column6
+    //
     this->Column6->HeaderText = L"Name";
     this->Column6->MinimumWidth = 6;
     this->Column6->Name = L"Column6";
     this->Column6->Width = 40;
+    //
+    // Column7
+    //
     this->Column7->HeaderText = L"Polinom";
     this->Column7->MinimumWidth = 6;
     this->Column7->Name = L"Column7";
     this->Column7->Width = 284;
+    //
+    // dataGridView5
+    //
     this->dataGridView5->ColumnHeadersHeightSizeMode = System::Windows::Forms::
         DataGridViewColumnHeadersHeightSizeMode::AutoSize;
     this->dataGridView5->Columns->AddRange(
@@ -409,14 +470,23 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView5->RowTemplate->Height = 24;
     this->dataGridView5->Size = System::Drawing::Size(378, 231);
     this->dataGridView5->TabIndex = 11;
+    //
+    // dataGridViewTextBoxColumn1
+    //
     this->dataGridViewTextBoxColumn1->HeaderText = L"Name";
     this->dataGridViewTextBoxColumn1->MinimumWidth = 6;
     this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
     this->dataGridViewTextBoxColumn1->Width = 40;
+    //
+    // dataGridViewTextBoxColumn2
+    //
     this->dataGridViewTextBoxColumn2->HeaderText = L"Polinom";
     this->dataGridViewTextBoxColumn2->MinimumWidth = 6;
     this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
     this->dataGridViewTextBoxColumn2->Width = 284;
+    //
+    // dataGridView6
+    //
     this->dataGridView6->ColumnHeadersHeightSizeMode = System::Windows::Forms::
         DataGridViewColumnHeadersHeightSizeMode::AutoSize;
     this->dataGridView6->Columns->AddRange(
@@ -429,26 +499,41 @@ ref class Table : public System::Windows::Forms::Form {
     this->dataGridView6->RowTemplate->Height = 24;
     this->dataGridView6->Size = System::Drawing::Size(378, 231);
     this->dataGridView6->TabIndex = 12;
+    //
+    // dataGridViewTextBoxColumn3
+    //
     this->dataGridViewTextBoxColumn3->HeaderText = L"Name";
     this->dataGridViewTextBoxColumn3->MinimumWidth = 6;
     this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
     this->dataGridViewTextBoxColumn3->Width = 40;
+    //
+    // dataGridViewTextBoxColumn4
+    //
     this->dataGridViewTextBoxColumn4->HeaderText = L"Polinom";
     this->dataGridViewTextBoxColumn4->MinimumWidth = 6;
     this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
     this->dataGridViewTextBoxColumn4->Width = 284;
+    //
+    // label5
+    //
     this->label5->AutoSize = true;
     this->label5->Location = System::Drawing::Point(256, 517);
     this->label5->Name = L"label5";
     this->label5->Size = System::Drawing::Size(137, 16);
     this->label5->TabIndex = 13;
     this->label5->Text = L"OpenAddrHashTable";
+    //
+    // label6
+    //
     this->label6->AutoSize = true;
     this->label6->Location = System::Drawing::Point(743, 517);
     this->label6->Name = L"label6";
     this->label6->Size = System::Drawing::Size(99, 16);
     this->label6->TabIndex = 14;
     this->label6->Text = L"SortArrayTable";
+    //
+    // label7
+    //
     this->label7->AutoSize = true;
     this->label7->Location = System::Drawing::Point(1209, 517);
     this->label7->Name = L"label7";
@@ -457,26 +542,30 @@ ref class Table : public System::Windows::Forms::Form {
     this->label7->Text = L"TreeTable";
     this->label7->Click +=
         gcnew System::EventHandler(this, &Table::label7_Click);
+    //
+    // textBox2
+    //
     this->textBox2->Location = System::Drawing::Point(15, 249);
     this->textBox2->Name = L"textBox2";
     this->textBox2->Size = System::Drawing::Size(290, 22);
     this->textBox2->TabIndex = 16;
-    this->button3->Location = System::Drawing::Point(225, 643);
-    this->button3->Name = L"button3";
-    this->button3->Size = System::Drawing::Size(160, 23);
-    this->button3->TabIndex = 17;
-    this->button3->Text = L"Find Polinom";
-    this->button3->UseVisualStyleBackColor = true;
-    this->button3->Click +=
-        gcnew System::EventHandler(this, &Table::button3_Click);
+    //
+    // textBox3
+    //
     this->textBox3->Location = System::Drawing::Point(464, 246);
     this->textBox3->Name = L"textBox3";
     this->textBox3->Size = System::Drawing::Size(290, 22);
     this->textBox3->TabIndex = 18;
+    //
+    // textBox4
+    //
     this->textBox4->Location = System::Drawing::Point(903, 246);
     this->textBox4->Name = L"textBox4";
     this->textBox4->Size = System::Drawing::Size(267, 22);
     this->textBox4->TabIndex = 19;
+    //
+    // comboBox1
+    //
     this->comboBox1->FormattingEnabled = true;
     this->comboBox1->Items->AddRange(gcnew cli::array<System::Object ^>(7){
         L"All", L"ArrTable", L"ListTable", L"ListHashTable",
@@ -485,37 +574,58 @@ ref class Table : public System::Windows::Forms::Form {
     this->comboBox1->Name = L"comboBox1";
     this->comboBox1->Size = System::Drawing::Size(176, 24);
     this->comboBox1->TabIndex = 20;
-    this->comboBox1->Text = L"All'";
+    this->comboBox1->Text = L"All\'";
     this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(
         this, &Table::comboBox1_SelectedIndexChanged);
+    //
+    // label8
+    //
     this->label8->AutoSize = true;
     this->label8->Location = System::Drawing::Point(15, 563);
     this->label8->Name = L"label8";
-    this->label8->Size = System::Drawing::Size(176, 16);
+    this->label8->Size = System::Drawing::Size(123, 16);
     this->label8->TabIndex = 21;
     this->label8->Text = L"Active Search table";
+    //
+    // textBox5
+    //
     this->textBox5->Location = System::Drawing::Point(12, 514);
     this->textBox5->Name = L"textBox5";
     this->textBox5->Size = System::Drawing::Size(235, 22);
     this->textBox5->TabIndex = 22;
+    //
+    // textBox6
+    //
     this->textBox6->Location = System::Drawing::Point(464, 514);
     this->textBox6->Name = L"textBox6";
     this->textBox6->Size = System::Drawing::Size(260, 22);
     this->textBox6->TabIndex = 23;
+    //
+    // textBox7
+    //
     this->textBox7->Location = System::Drawing::Point(903, 514);
     this->textBox7->Name = L"textBox7";
     this->textBox7->Size = System::Drawing::Size(288, 22);
     this->textBox7->TabIndex = 24;
+    //
+    // label9
+    //
     this->label9->AutoSize = true;
     this->label9->Location = System::Drawing::Point(15, 621);
     this->label9->Name = L"label9";
-    this->label9->Size = System::Drawing::Size(110, 16);
+    this->label9->Size = System::Drawing::Size(73, 16);
     this->label9->TabIndex = 25;
     this->label9->Text = L"key search";
+    //
+    // textBox8
+    //
     this->textBox8->Location = System::Drawing::Point(15, 646);
     this->textBox8->Name = L"textBox8";
     this->textBox8->Size = System::Drawing::Size(107, 22);
     this->textBox8->TabIndex = 26;
+    //
+    // button4
+    //
     this->button4->Location = System::Drawing::Point(15, 674);
     this->button4->Name = L"button4";
     this->button4->Size = System::Drawing::Size(107, 28);
@@ -524,16 +634,25 @@ ref class Table : public System::Windows::Forms::Form {
     this->button4->UseVisualStyleBackColor = true;
     this->button4->Click +=
         gcnew System::EventHandler(this, &Table::button4_Click);
+    //
+    // label11
+    //
     this->label11->AutoSize = true;
     this->label11->Location = System::Drawing::Point(586, 563);
     this->label11->Name = L"label11";
-    this->label11->Size = System::Drawing::Size(107, 16);
+    this->label11->Size = System::Drawing::Size(67, 16);
     this->label11->TabIndex = 29;
     this->label11->Text = L"Input keys";
+    //
+    // textBox9
+    //
     this->textBox9->Location = System::Drawing::Point(589, 587);
     this->textBox9->Name = L"textBox9";
     this->textBox9->Size = System::Drawing::Size(180, 22);
     this->textBox9->TabIndex = 30;
+    //
+    // button5
+    //
     this->button5->Location = System::Drawing::Point(589, 615);
     this->button5->Name = L"button5";
     this->button5->Size = System::Drawing::Size(107, 28);
@@ -542,6 +661,9 @@ ref class Table : public System::Windows::Forms::Form {
     this->button5->UseVisualStyleBackColor = true;
     this->button5->Click +=
         gcnew System::EventHandler(this, &Table::button5_Click);
+    //
+    // button6
+    //
     this->button6->Location = System::Drawing::Point(589, 652);
     this->button6->Name = L"button6";
     this->button6->Size = System::Drawing::Size(196, 28);
@@ -550,6 +672,9 @@ ref class Table : public System::Windows::Forms::Form {
     this->button6->UseVisualStyleBackColor = true;
     this->button6->Click +=
         gcnew System::EventHandler(this, &Table::button6_Click);
+    //
+    // button7
+    //
     this->button7->Location = System::Drawing::Point(589, 686);
     this->button7->Name = L"button7";
     this->button7->Size = System::Drawing::Size(196, 28);
@@ -558,12 +683,18 @@ ref class Table : public System::Windows::Forms::Form {
     this->button7->UseVisualStyleBackColor = true;
     this->button7->Click +=
         gcnew System::EventHandler(this, &Table::button7_Click);
+    //
+    // label10
+    //
     this->label10->AutoSize = true;
     this->label10->Location = System::Drawing::Point(850, 580);
     this->label10->Name = L"label10";
     this->label10->Size = System::Drawing::Size(51, 16);
     this->label10->TabIndex = 34;
     this->label10->Text = L"label10";
+    //
+    // Table
+    //
     this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
     this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
     this->ClientSize = System::Drawing::Size(1924, 1000);
@@ -583,7 +714,6 @@ ref class Table : public System::Windows::Forms::Form {
     this->Controls->Add(this->comboBox1);
     this->Controls->Add(this->textBox4);
     this->Controls->Add(this->textBox3);
-    this->Controls->Add(this->button3);
     this->Controls->Add(this->textBox2);
     this->Controls->Add(this->label7);
     this->Controls->Add(this->label6);
@@ -602,6 +732,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->Controls->Add(this->button1);
     this->Controls->Add(this->dataGridView1);
     this->Margin = System::Windows::Forms::Padding(4);
+    //this->Name = L"Table";
     this->Text = L"Table";
     this->Load += gcnew System::EventHandler(this, &Table::Table_Load);
     (cli::safe_cast<System::ComponentModel::ISupportInitialize ^>(
@@ -666,12 +797,14 @@ ref class Table : public System::Windows::Forms::Form {
         msclr::interop::marshal_as<string>(textBox1->Text);
     TPolinom polinom(convertToVector(String_from_textbox));
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), polinom);
+    //count++;
   }
 
   template <typename TableType>
   System::Void AddPolinom(TPolinom p, TableType* table, int i,
                           DataGridView ^ dataGridView) {
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), p);
+    //count++;
   }
 
 
@@ -680,14 +813,15 @@ ref class Table : public System::Windows::Forms::Form {
     string String_from_textbox =
         msclr::interop::marshal_as<string>(textBox1->Text);
     table->Delete(String_from_textbox);
+    //count--;
   }
 
   template <typename TableType>
-  System::Void Refresh(TableType* table, DataGridView ^ dataGridView, int key){
-    if (key > 1) {
+  System::Void Refresh(TableType* table, DataGridView ^ dataGridView, int key, int count){
+    if (count > 0) {
       table->Reset();
       dataGridView->Rows->Clear();
-      for (int i = 0; i < key - 1; i++) {
+      for (int i = 0; i < count; i++) {
         System::String ^ PolinomName1 =
             msclr::interop::marshal_as<System::String ^>(table->GetKey());
         System::String ^ PolinomText1 =
@@ -719,50 +853,44 @@ ref class Table : public System::Windows::Forms::Form {
   System::Void button1_Click(System::Object ^ sender, System::EventArgs ^ e) {
     
     AddPolinom(arrayTable, aT, dataGridView1);
-    aT++;
-    Refresh(arrayTable, dataGridView1, aT);
-
     AddPolinom(listTable, lT, dataGridView2);
-    lT++;
-    Refresh(listTable, dataGridView2, lT);
-
     AddPolinom(listhashTable, lhT, dataGridView3);
-    lhT++;
-    Refresh(listhashTable, dataGridView3, lhT);
-
     AddPolinom(openAddrHashTable, oahT, dataGridView4);
-    oahT++;
-    Refresh(openAddrHashTable, dataGridView4, oahT);
-
     AddPolinom(sortArrayTable, saT, dataGridView5);
-    saT++;
-    Refresh(sortArrayTable, dataGridView5, saT);
-
     AddPolinom(treeTable, tT, dataGridView6);
+    aT++;
+    lT++;
+    lhT++;
+    oahT++;
+    saT++;
     tT++;
-    Refresh(treeTable, dataGridView6, tT);
+
+    count++;
+    Refresh(arrayTable, dataGridView1, aT, count);
+    Refresh(listTable, dataGridView2, lT, count);
+    Refresh(listhashTable, dataGridView3, lhT, count);
+    Refresh(openAddrHashTable, dataGridView4, oahT, count);
+    Refresh(sortArrayTable, dataGridView5, saT, count);
+    Refresh(treeTable, dataGridView6, tT, count);
   }
 
  private:
   System::Void button2_Click(System::Object ^ sender, System::EventArgs ^ e) {
     DelPolinom(arrayTable);
-    aT--;
-    Refresh(arrayTable, dataGridView1, aT);
     DelPolinom(listTable);
-    lT--;
-    Refresh(arrayTable, dataGridView2, lT);
     DelPolinom(listhashTable);
-    lhT--;
-    Refresh(arrayTable, dataGridView3, lhT);
     DelPolinom(openAddrHashTable);
-    oahT--;
-    Refresh(arrayTable, dataGridView4, oahT);
     DelPolinom(sortArrayTable);
-    saT--;
-    Refresh(arrayTable, dataGridView5, saT);
     DelPolinom(treeTable);
-    tT--;
-    Refresh(arrayTable, dataGridView6, tT);
+
+    count--;
+
+    Refresh(arrayTable, dataGridView1, aT, count);
+    Refresh(arrayTable, dataGridView2, lT, count);
+    Refresh(arrayTable, dataGridView3, lhT, count);
+    Refresh(arrayTable, dataGridView4, oahT, count);
+    Refresh(arrayTable, dataGridView5, saT, count);
+    Refresh(arrayTable, dataGridView6, tT, count);
   }
 
  private:
@@ -834,28 +962,26 @@ ref class Table : public System::Windows::Forms::Form {
       sum = sum + pol;
     }*/
     AddPolinom(sum, arrayTable, aT, dataGridView1);
-    aT++;
-    Refresh(arrayTable, dataGridView1, aT);
-
     AddPolinom(sum, listTable, lT, dataGridView2);
-    lT++;
-    Refresh(listTable, dataGridView2, lT);
-
     AddPolinom(sum, listhashTable, lhT, dataGridView3);
-    lhT++;
-    Refresh(listhashTable, dataGridView3, lhT);
-
     AddPolinom(sum, openAddrHashTable, oahT, dataGridView4);
-    oahT++;
-    Refresh(openAddrHashTable, dataGridView4, oahT);
-
     AddPolinom(sum, sortArrayTable, saT, dataGridView5);
-    saT++;
-    Refresh(sortArrayTable, dataGridView5, saT);
-
     AddPolinom(sum, treeTable, tT, dataGridView6);
+    aT++;
+    lT++;
+    lhT++;
+    oahT++;
+    saT++;
     tT++;
-    Refresh(treeTable, dataGridView6, tT);
+
+    count++;
+
+    Refresh(arrayTable, dataGridView1, aT, count);
+    Refresh(listTable, dataGridView2, lT, count);
+    Refresh(listhashTable, dataGridView3, lhT, count);
+    Refresh(openAddrHashTable, dataGridView4, oahT, count);
+    Refresh(sortArrayTable, dataGridView5, saT, count);
+    Refresh(treeTable, dataGridView6, tT, count);
   }
 
  private:
@@ -872,29 +998,26 @@ ref class Table : public System::Windows::Forms::Form {
     label10->Text = msclr::interop::marshal_as<String ^>(PolinomText);
 
     AddPolinom(sum, arrayTable, aT, dataGridView1);
-    aT++;
-    Refresh(arrayTable, dataGridView1, aT);
-
     AddPolinom(sum, listTable, lT, dataGridView2);
-    lT++;
-    Refresh(listTable, dataGridView2, lT);
-
     AddPolinom(sum, listhashTable, lhT, dataGridView3);
-    lhT++;
-    Refresh(listhashTable, dataGridView3, lhT);
-
     AddPolinom(sum, openAddrHashTable, oahT, dataGridView4);
-    oahT++;
-    Refresh(openAddrHashTable, dataGridView4, oahT);
-
     AddPolinom(sum, sortArrayTable, saT, dataGridView5);
-    saT++;
-    Refresh(sortArrayTable, dataGridView5, saT);
-
     AddPolinom(sum, treeTable, tT, dataGridView6);
+    aT++;
+    lT++;
+    lhT++;
+    oahT++;
+    saT++;
     tT++;
-    Refresh(treeTable, dataGridView6, tT);
 
+    count++;
+
+    Refresh(arrayTable, dataGridView1, aT, count);
+    Refresh(listTable, dataGridView2, lT, count);
+    Refresh(listhashTable, dataGridView3, lhT, count);
+    Refresh(openAddrHashTable, dataGridView4, oahT, count);
+    Refresh(sortArrayTable, dataGridView5, saT, count);
+    Refresh(treeTable, dataGridView6, tT, count);
   }
 
  private:
