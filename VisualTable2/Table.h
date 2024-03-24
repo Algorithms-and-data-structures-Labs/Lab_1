@@ -1,4 +1,6 @@
 #pragma once
+#define _HAS_STD_BYTE 0
+#include <Polinom/TPolinom.h>
 
 #include <msclr\marshal_cppstd.h>
 #include <table/ListHashTable.h>
@@ -152,7 +154,6 @@ ref class Table : public System::Windows::Forms::Form {
 
  private:
   System::Windows::Forms::Label ^ label10;
-
 
  private:
   System::Windows::Forms::TextBox ^ textBox4;
