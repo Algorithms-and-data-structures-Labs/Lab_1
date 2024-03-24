@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <list>
 #include <stack>
+#include <Polinom/TPolinom.h>
 
 using namespace std;
 #define TabMaxSize 100

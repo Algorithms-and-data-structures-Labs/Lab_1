@@ -1,4 +1,5 @@
 #pragma once
+
 #include <msclr\marshal_cppstd.h>
 #include <table/ListHashTable.h>
 #include <table/ListTable.h>
@@ -6,9 +7,6 @@
 #include <table/TreeTable.h>
 #include <table/tablearr.h>
 #include <table/tablearrsort.h>
-
-#include <sstream>
-#include <Polinom/TPolinom.h>
 
 namespace VisualTable2 {
 
@@ -954,7 +952,7 @@ ref class Table : public System::Windows::Forms::Form {
     sum = pol1 + pol2;
 
     string PolinomText = sum.ToString();
-    label10->Text = msclr::interop::marshal_as<String ^>(PolinomText);
+    label10->Text = (PolinomText);
     /*for (char c:inputText) {
       string k(1, c);
       TPolinom* polPtr = arrayTable->Find(k);
