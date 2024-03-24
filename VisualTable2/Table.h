@@ -1,7 +1,6 @@
 #pragma once
 #define _HAS_STD_BYTE 0
 #include <Polinom/TPolinom.h>
-
 #include <msclr\marshal_cppstd.h>
 #include <table/ListHashTable.h>
 #include <table/ListTable.h>

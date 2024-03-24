@@ -1,6 +1,5 @@
-#include "table/alltable.h"
-
 #include "gtest/gtest.h"
+#include "table/alltable.h"
 
 TEST(TableAll, find_test1) {
   AllTable<string, int> tab;
