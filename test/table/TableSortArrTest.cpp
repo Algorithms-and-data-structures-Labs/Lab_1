@@ -86,8 +86,6 @@ TEST(SortArrayTable, GoNext_moves_to_next_element) {
   table.Insert(2, 2.71);
 
   EXPECT_EQ(table.GetKey(), 2);
-  //table.GoNext();
-  
 }
 TEST(SortArrayTable, isfull_test) {
   SortArrayTable<int, int> arrtab;

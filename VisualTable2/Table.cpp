@@ -10,4 +10,3 @@ using namespace System::Windows::Forms;
   VisualTable2::Table form;
   Application::Run(% form);
 }
-

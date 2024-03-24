@@ -1,12 +1,12 @@
 #pragma once
+#include <Polinom/TPolinom.h>
+#include <algorithm>
 #include <iostream>
+#include <list>
 #include <locale>
+#include <stack>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <list>
-#include <stack>
-#include <Polinom/TPolinom.h>
 
 using namespace std;
 #define TabMaxSize 100

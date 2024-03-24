@@ -22,9 +22,9 @@ struct TreeNode {
 template <typename TKey, typename TValue>
 class TreeTable : public Table<TKey, TValue> {
  public:
-  typename::TreeNode<TKey, TValue>* root;
-  typename::TreeNode<TKey, TValue>** ref;
-  typename::TreeNode<TKey, TValue>* cur;
+  typename ::TreeNode<TKey, TValue>* root;
+  typename ::TreeNode<TKey, TValue>** ref;
+  typename ::TreeNode<TKey, TValue>* cur;
   int curpos;
   stack<typename ::TreeNode<TKey, TValue>*> st;
 
@@ -144,7 +144,7 @@ class TreeTable : public Table<TKey, TValue> {
     return Height(node->right) - Height(node->left);
   }
 
-  typename::TreeNode<TKey, TValue>* InsertRecursive(
+  typename ::TreeNode<TKey, TValue>* InsertRecursive(
       typename ::TreeNode<TKey, TValue>* node,
                                           TKey key, TValue d) {
     if (node == nullptr) {

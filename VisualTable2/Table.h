@@ -17,7 +17,6 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-
 public
 ref class Table : public System::Windows::Forms::Form {
  private:
@@ -30,7 +29,7 @@ ref class Table : public System::Windows::Forms::Form {
   int count;
   int lT, aT, tT, lhT, oahT, saT;
  private:
-   System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
+  System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
 
  private:
   System::Windows::Forms::Label ^ label1;
@@ -105,53 +104,53 @@ ref class Table : public System::Windows::Forms::Form {
  private:
   System::Windows::Forms::TextBox ^ textBox2;
 
-  private:
+ private:
   System::Windows::Forms::DataGridViewTextBoxColumn ^ Polinom;
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox3;
+ private:
+  System::Windows::Forms::TextBox ^ textBox3;
 
-  private:
-   System::Windows::Forms::ComboBox ^ comboBox1;
+ private:
+  System::Windows::Forms::ComboBox ^ comboBox1;
 
-  private:
-   System::Windows::Forms::Label ^ label8;
+ private:
+  System::Windows::Forms::Label ^ label8;
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox5;
+ private:
+  System::Windows::Forms::TextBox ^ textBox5;
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox6;
+ private:
+  System::Windows::Forms::TextBox ^ textBox6;
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox7;
+ private:
+  System::Windows::Forms::TextBox ^ textBox7;
 
-  private:
-   System::Windows::Forms::Label ^ label9;
+ private:
+  System::Windows::Forms::Label ^ label9;
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox8;
+ private:
+  System::Windows::Forms::TextBox ^ textBox8;
 
-  private:
-   System::Windows::Forms::Button ^ button4;
+ private:
+  System::Windows::Forms::Button ^ button4;
 
-  private:
-   System::Windows::Forms::Label ^ label11;
+ private:
+  System::Windows::Forms::Label ^ label11;
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox9;
+ private:
+  System::Windows::Forms::TextBox ^ textBox9;
 
-  private:
-   System::Windows::Forms::Button ^ button5;
+ private:
+  System::Windows::Forms::Button ^ button5;
 
-  private:
-   System::Windows::Forms::Button ^ button6;
+ private:
+  System::Windows::Forms::Button ^ button6;
 
-  private:
-   System::Windows::Forms::Button ^ button7;
+ private:
+  System::Windows::Forms::Button ^ button7;
 
-  private:
-   System::Windows::Forms::Label ^ label10;
+ private:
+  System::Windows::Forms::Label ^ label10;
 
 
   private:
@@ -171,7 +170,6 @@ ref class Table : public System::Windows::Forms::Form {
   }
 
  protected:
-
   ~Table() {
     if (components) {
       delete components;
@@ -194,7 +192,6 @@ ref class Table : public System::Windows::Forms::Form {
   System::Windows::Forms::Button ^ button2;
 
  private:
-
   System::ComponentModel::Container ^ components;
 
 #pragma region Windows Form Designer generated code
@@ -730,7 +727,7 @@ ref class Table : public System::Windows::Forms::Form {
     this->Controls->Add(this->button1);
     this->Controls->Add(this->dataGridView1);
     this->Margin = System::Windows::Forms::Padding(4);
-    //this->Name = L"Table";
+    // this->Name = L"Table";
     this->Text = L"Table";
     this->Load += gcnew System::EventHandler(this, &Table::Table_Load);
     (cli::safe_cast<System::ComponentModel::ISupportInitialize ^>(
@@ -790,19 +787,18 @@ ref class Table : public System::Windows::Forms::Form {
   }
 
   template <typename TableType>
-  System::Void AddPolinom(TableType* table, int i, DataGridView ^ dataGridView) {
+  System::Void AddPolinom(TableType* table, int i,
+                          DataGridView ^ dataGridView) {
     string String_from_textbox =
         msclr::interop::marshal_as<string>(textBox1->Text);
     TPolinom polinom(convertToVector(String_from_textbox));
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), polinom);
-    //count++;
   }
 
   template <typename TableType>
   System::Void AddPolinom(TPolinom p, TableType* table, int i,
                           DataGridView ^ dataGridView) {
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), p);
-    //count++;
   }
 
 
@@ -811,11 +807,11 @@ ref class Table : public System::Windows::Forms::Form {
     string String_from_textbox =
         msclr::interop::marshal_as<string>(textBox1->Text);
     table->Delete(String_from_textbox);
-    //count--;
   }
 
   template <typename TableType>
-  System::Void Refresh(TableType* table, DataGridView ^ dataGridView, int key, int count){
+  System::Void Refresh(TableType* table, DataGridView ^ dataGridView, int key,
+                       int count){
     if (count > 0) {
       table->Reset();
       dataGridView->Rows->Clear();
@@ -834,10 +830,8 @@ ref class Table : public System::Windows::Forms::Form {
   }
 
   template <typename TableType>
-  System::Void FindPolinom(TableType* table,
-                          TextBox ^ textbox) {
-    string Key =
-        msclr::interop::marshal_as<string>(textBox8->Text);
+  System::Void FindPolinom(TableType* table, TextBox ^ textbox) {
+    string Key = msclr::interop::marshal_as<string>(textBox8->Text);
     TPolinom* polPtr = table->Find(Key);
     if (polPtr != nullptr) {
       TPolinom pol = *polPtr;
@@ -847,9 +841,9 @@ ref class Table : public System::Windows::Forms::Form {
       textbox->Text = "Polinom not found";
     }
   }
+
  private:
   System::Void button1_Click(System::Object ^ sender, System::EventArgs ^ e) {
-    
     AddPolinom(arrayTable, aT, dataGridView1);
     AddPolinom(listTable, lT, dataGridView2);
     AddPolinom(listhashTable, lhT, dataGridView3);
@@ -908,8 +902,7 @@ ref class Table : public System::Windows::Forms::Form {
 
  private:
   System::Void comboBox1_SelectedIndexChanged(System::Object ^ sender,
-                                              System::EventArgs ^ e) {
-  }
+                                              System::EventArgs ^ e) {}
 
  private:
   System::Void button4_Click(System::Object ^ sender, System::EventArgs ^ e) {
@@ -952,7 +945,7 @@ ref class Table : public System::Windows::Forms::Form {
     sum = pol1 + pol2;
 
     string PolinomText = sum.ToString();
-    label10->Text = (PolinomText);
+    label10->Text = msclr::interop::marshal_as<String ^>(PolinomText);
     /*for (char c:inputText) {
       string k(1, c);
       TPolinom* polPtr = arrayTable->Find(k);
@@ -984,7 +977,8 @@ ref class Table : public System::Windows::Forms::Form {
 
  private:
   System::Void button6_Click(System::Object ^ sender, System::EventArgs ^ e) {
-    string constantaWithKey = msclr::interop::marshal_as<string>(textBox9->Text);
+    string constantaWithKey =
+        msclr::interop::marshal_as<string>(textBox9->Text);
     char k = constantaWithKey[0];
     char c = constantaWithKey[1];
     string k1(1, k);
@@ -1040,5 +1034,5 @@ ref class Table : public System::Windows::Forms::Form {
 
  private:
   System::Void label12_Click(System::Object ^ sender, System::EventArgs ^ e) {}
-};
-}
+ };
+}  // namespace VisualTable2
