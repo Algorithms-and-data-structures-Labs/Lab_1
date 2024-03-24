@@ -28,6 +28,7 @@ ref class Table : public System::Windows::Forms::Form {
   SortArrayTable<string, TPolinom>* sortArrayTable;
   int count;
   int lT, aT, tT, lhT, oahT, saT;
+
  private:
   System::Windows::Forms::DataGridViewTextBoxColumn ^ Column1;
 
@@ -153,8 +154,8 @@ ref class Table : public System::Windows::Forms::Form {
   System::Windows::Forms::Label ^ label10;
 
 
-  private:
-   System::Windows::Forms::TextBox ^ textBox4;
+ private:
+  System::Windows::Forms::TextBox ^ textBox4;
 
  public:
   Table(void) {
@@ -801,7 +802,6 @@ ref class Table : public System::Windows::Forms::Form {
     table->Insert(msclr::interop::marshal_as<string>(i.ToString()), p);
   }
 
-
   template <typename TableType>
   System::Void DelPolinom(TableType* table) {
     string String_from_textbox =
@@ -811,7 +811,7 @@ ref class Table : public System::Windows::Forms::Form {
 
   template <typename TableType>
   System::Void Refresh(TableType* table, DataGridView ^ dataGridView, int key,
-                       int count){
+                       int count) {
     if (count > 0) {
       table->Reset();
       dataGridView->Rows->Clear();
@@ -1034,5 +1034,5 @@ ref class Table : public System::Windows::Forms::Form {
 
  private:
   System::Void label12_Click(System::Object ^ sender, System::EventArgs ^ e) {}
- };
+};
 }  // namespace VisualTable2

@@ -145,8 +145,7 @@ class TreeTable : public Table<TKey, TValue> {
   }
 
   typename ::TreeNode<TKey, TValue>* InsertRecursive(
-      typename ::TreeNode<TKey, TValue>* node,
-                                          TKey key, TValue d) {
+      typename ::TreeNode<TKey, TValue>* node, TKey key, TValue d) {
     if (node == nullptr) {
       return new typename ::TreeNode<TKey, TValue>(key, new TValue(d), nullptr,
                                                    nullptr);
@@ -186,8 +185,7 @@ class TreeTable : public Table<TKey, TValue> {
   }
 
   typename ::TreeNode<TKey, TValue>* DeleteRecursive(
-      typename ::TreeNode<TKey, TValue>* node,
-                                          TKey k) {
+      typename ::TreeNode<TKey, TValue>* node, TKey k) {
     if (node == nullptr) return nullptr;
 
     if (k < node->key) {

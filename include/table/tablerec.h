@@ -1,5 +1,6 @@
 #pragma once
 #include <Polinom/TPolinom.h>
+
 #include <algorithm>
 #include <iostream>
 #include <list>
