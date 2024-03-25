@@ -203,7 +203,7 @@ int main() {
         for (int i = 0; i < 6; i++) b.push_back(*a[i]);
         TPolinom pol(b[0]);
         double Point = pol.Evaluate(x, y, z);
-        //GetTablest(tab);
+        // GetTablest(tab);
         std::cout << "\n\n";
         std::cout << "Your result:  " << Point;
         std::cout << "\n\n\n";
