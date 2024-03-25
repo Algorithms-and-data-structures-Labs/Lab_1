@@ -1,1 +1,2 @@
 add_executable(PolinomTableSample PolinomTable.cpp)
+add_executable(PolinomTableTime PolinomTimer.cpp)
