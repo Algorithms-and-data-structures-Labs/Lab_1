@@ -1,11 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <algorithm>
-#include <iostream>
-#include <locale>
-#include <string>
-
 template <typename TKey, typename TValue>
 class SortArrayTable : public Table<TKey, TValue> {
  private:
@@ -40,6 +35,7 @@ class SortArrayTable : public Table<TKey, TValue> {
     count++;
     sort(data.begin(), data.end(),
          [](const TabRec& a, const TabRec& b) { return a.key < b.key; });
+    currentIndex = data.size() - 1;
   }
 
   bool IsFull() const override { return size() >= TabMaxSize; }

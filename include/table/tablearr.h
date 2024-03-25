@@ -1,10 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <iostream>
-#include <locale>
-#include <string>
-
 template <typename TKey, typename TValue>
 class ArrayTable : public Table<TKey, TValue> {
  private:
@@ -38,6 +34,7 @@ class ArrayTable : public Table<TKey, TValue> {
     TabRec tab = {key, newValue};
     data.push_back(tab);
     this->count++;
+    currentIndex = data.size() - 1;
   }
 
   void Delete(TKey key) override {

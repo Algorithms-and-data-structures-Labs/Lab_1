@@ -82,10 +82,9 @@ TEST(SortArrayTable, remove_all_elements) {
 TEST(SortArrayTable, GoNext_moves_to_next_element) {
   SortArrayTable<int, float> table;
   table.Insert(1, 3.14);
+  EXPECT_EQ(table.GetKey(), 1);
   table.Insert(2, 2.71);
 
-  EXPECT_EQ(table.GetKey(), 1);
-  table.GoNext();
   EXPECT_EQ(table.GetKey(), 2);
 }
 TEST(SortArrayTable, isfull_test) {

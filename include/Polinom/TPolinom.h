@@ -1,6 +1,5 @@
 #pragma once
 #include <iomanip>
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -24,6 +23,7 @@ class TPolinom : public THeadList<TMonom> {
   TPolinom operator*(TPolinom& other);
   bool operator==(TPolinom& other);
   string ToString();
+  double Evaluate(double x, double y, double z);
 };
 
 TPolinom::TPolinom() : THeadList<TMonom>::THeadList() { length = 0; }
@@ -236,5 +236,24 @@ TPolinom TPolinom::operator*(TPolinom& other) {
 }
 TPolinom TPolinom::MultMonom(TMonom monom) {
   TPolinom result;
+  return result;
+}
+double TPolinom::Evaluate(double x, double y, double z) {
+  double result = 0.0;
+  Reset();
+  for (int i = 0; i < GetLength(); i++) {
+    TMonom monom = GetCurrentItem();
+    double coef = monom.GetCoef();
+    int index = monom.GetIndex();
+    int xExp = (index - index % 100) / 100;
+    int yExp = ((index % 100) - (index % 10)) / 10;
+    int zExp = index % 10;
+
+    double termValue = coef * pow(x, xExp) * pow(y, yExp) * pow(z, zExp);
+    result += termValue;
+
+    GoNext();
+  }
+  Reset();
   return result;
 }

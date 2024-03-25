@@ -1,11 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <iostream>
-#include <locale>
-#include <string>
-
-using namespace std;
 template <typename TKey, typename TValue>
 struct TabRecorD {
   TKey key;

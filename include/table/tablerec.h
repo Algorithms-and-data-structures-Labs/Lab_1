@@ -1,11 +1,13 @@
 #pragma once
+#include <algorithm>
 #include <iostream>
+#include <list>
 #include <locale>
+#include <stack>
 #include <string>
 #include <vector>
 
 using namespace std;
-
 #define TabMaxSize 100
 template <typename TKey, typename TValue>
 class Table {

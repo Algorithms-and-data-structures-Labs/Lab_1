@@ -1,10 +1,6 @@
 #pragma once
 #include <table/tablerec.h>
 
-#include <iostream>
-#include <list>
-#include <string>
-
 template <typename TKey, typename TValue>
 struct TabRecord {
   TKey key;
@@ -24,16 +20,16 @@ class ListHashTable : public Table<TKey, TValue> {
  protected:
   int TabSize;
   int CurList;
-  std::list<TabRecord<TKey, TValue>> *pList;
-  typename std::list<TabRecord<TKey, TValue>>::iterator startChain;
+  list<TabRecord<TKey, TValue>> *pList;
+  typename list<TabRecord<TKey, TValue>>::iterator startChain;
 
  public:
   ListHashTable(int size) {
-    pList = new std::list<TabRecord<TKey, TValue>>[size];
+    pList = new list<TabRecord<TKey, TValue>>[size];
     TabSize = size;
     CurList = 0;
     for (int i = 0; i < TabSize; i++)
-      pList[i] = std::list<TabRecord<TKey, TValue>>();
+      pList[i] = list<TabRecord<TKey, TValue>>();
   }
 
   ~ListHashTable() { delete[] pList; }
@@ -42,7 +38,7 @@ class ListHashTable : public Table<TKey, TValue> {
   TValue *Find(TKey k) override {
     TabRecord<TKey, TValue> *tmp = nullptr;
     CurList = HashFunc(k) % TabSize;
-    std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
+    list<TabRecord<TKey, TValue>> *lst = pList + CurList;
     for (auto &rec : *lst) {
       if (rec.key == k) {
         tmp = new TabRecord<TKey, TValue>(rec.key, rec.value);
@@ -56,7 +52,7 @@ class ListHashTable : public Table<TKey, TValue> {
 
   void Insert(TKey k, TValue pVal) override {
     CurList = HashFunc(k) % TabSize;
-    std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
+    list<TabRecord<TKey, TValue>> *lst = pList + CurList;
     TValue *val = new TValue(pVal);
     TabRecord<TKey, TValue> record(k, val);
     lst->push_back(record);
@@ -64,7 +60,7 @@ class ListHashTable : public Table<TKey, TValue> {
 
   void Delete(TKey k) override {
     CurList = HashFunc(k) % TabSize;
-    std::list<TabRecord<TKey, TValue>> *lst = pList + CurList;
+    list<TabRecord<TKey, TValue>> *lst = pList + CurList;
     for (auto it = lst->begin(); it != lst->end(); ++it) {
       if (it->key == k) {
         it = lst->erase(it);
@@ -105,14 +101,14 @@ class ListHashTable : public Table<TKey, TValue> {
 
   TKey GetKey() const override {
     if (CurList == TabSize) {
-      throw std::out_of_range("No key at this position");
+      throw out_of_range("No key at this position");
     }
     return (pList + CurList)->front().key;
   }
 
   TValue GetValuePtr() const override {
     if (CurList == TabSize) {
-      throw std::out_of_range("No value at this position");
+      throw out_of_range("No value at this position");
     }
     return *(pList + CurList)->front().value;
   }

@@ -6,12 +6,6 @@
 #include <table/tablearr.h>
 #include <table/tablearrsort.h>
 
-#include <algorithm>
-#include <iostream>
-#include <locale>
-#include <string>
-#include <vector>
-
 #define MaxSize 100
 template <typename TKey, typename TValue>
 class AllTable {

@@ -62,7 +62,9 @@ int CheckMenu() {
             << "\n"
             << "5. Mult on Const"
             << "\n"
-            << "6. EXIT"
+            << "6. Calculate in point"
+            << "\n"
+            << "7. EXIT"
             << "\n";
   int i;
   cin >> i;
@@ -79,7 +81,7 @@ int main() {
   std::cout << "\n";
   int menu;
   menu = CheckMenu();
-  while (menu != 6) {
+  while (menu != 7) {
     switch (menu) {
       case 1: {
         std::cout << "Enter the key";
@@ -179,6 +181,31 @@ int main() {
         GetTablest(tab);
         std::cout << "\n\n";
         std::cout << "Your result:  " << pol.ToString();
+        std::cout << "\n\n\n";
+        menu = CheckMenu();
+        break;
+      }
+      case 6: {
+        std::cout << "Enter the key";
+        std::cout << "\n";
+        std::string key;
+        cin >> key;
+        std::cout << "\n";
+        std::cout << "Enter the coefs";
+        std::cout << "\n";
+        int x;
+        int y;
+        int z;
+        cin >> x >> y >> z;
+        std::cout << "\n";
+        std::vector<std::vector<int>*> a = tab.Find(key);
+        std::vector<std::vector<int>> b;
+        for (int i = 0; i < 6; i++) b.push_back(*a[i]);
+        TPolinom pol(b[0]);
+        double Point = pol.Evaluate(x, y, z);
+        // GetTablest(tab);
+        std::cout << "\n\n";
+        std::cout << "Your result:  " << Point;
         std::cout << "\n\n\n";
         menu = CheckMenu();
         break;
