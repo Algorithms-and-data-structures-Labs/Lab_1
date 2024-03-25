@@ -167,7 +167,6 @@ int main() {
             << " microseconds" << std::endl;
   std::cout << std::endl;
 
-
   start = std::chrono::steady_clock::now();
   arrayTable.Delete("405");
   end = std::chrono::steady_clock::now();
