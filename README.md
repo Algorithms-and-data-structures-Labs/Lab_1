@@ -96,7 +96,7 @@
 | 2) Визуальный интерфейс    | 2) Базовая таблица	          | 2) OpenAddrHashTable	     |
 | 3) Экперименты для отчета  | 3) ArrayTable                 | 3) SortArrayTable         |
 |                            | 4) Интерфейс(менеджер таблиц) | 4) TreeTable              |
-|                            | 5) ReadMe                     | 5) Подготовка презентации |
+|                            | 5) ReadMe and sample          | 5) Подготовка презентации |
 
 ## 5\. Пример отработки программы
 
@@ -143,4 +143,68 @@ To build and run this project locally on Windows, follow these steps:
 
 ## 7\. Характеристическая оценка производительности
 
-:grey_question: :shipit: :grey_question:
+Эксперименты проводились на ПК с следующими параметрами:
+
+1. Операционная система: Windows 10
+1. Процессор: Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz   2.30 GHz
+1. Версия Visual Studio: 2022
+
+   **Алгоритмическая сложность**
+
+|&emsp;Операция |&emsp;Неупорядоченная таблица|&emsp;Упорядоченная таблица|&emsp;Таблица на списке|&emsp;АВЛ-дерево|&emsp;Хеш-таблица с открытой адресацией |&emsp;Хеш-таблица с методом цепочек|
+| - | - | - | - | - | - | - |
+|&emsp;Поиск|&emsp;N|&emsp;log<sub>2</sub>N |&emsp;N|&emsp;1\.45log<sub>2</sub>N|&emsp;1|&emsp;1|
+|&emsp;Вставка|&emsp;N + 1|&emsp;log<sub>2</sub>N + N|&emsp;1|&emsp;1\.45log<sub>2</sub>N + С<sub>1</sub>|&emsp;1|&emsp;1|
+|&emsp;Удаление|&emsp;N + 1|&emsp;log<sub>2</sub>N + N|&emsp;N + 1|&emsp;1.45log<sub>2</sub>(N)*С<sub>2</sub>|&emsp;1|&emsp;1|
+
+   **Вставка**
+
+|&emsp;Количество элементов|&emsp;1000|&emsp;5000|&emsp;10000|&emsp;20000|
+| :- | :-: | :- | :- | :- |
+|&emsp;ArrayTable|&emsp;17|&emsp;18|&emsp;20|&emsp;22|
+|&emsp;SortArrayTable|&emsp;1409|&emsp;9324|&emsp;21472|&emsp;41805|
+|&emsp;ListTable|&emsp;25|&emsp;25|&emsp;28|&emsp;30|
+|&emsp;ListHashTable|&emsp;23|&emsp;24|&emsp;30|&emsp;31|
+|&emsp;TreeTable|&emsp;122|&emsp;536|&emsp;2307|&emsp;2310|
+|&emsp;OpenAddHashTable|&emsp;15|&emsp;17|&emsp;25|&emsp;29|
+
+   **Удаление**
+
+|&emsp;Количество элементов|&emsp;1000|&emsp;5000|&emsp;10000|&emsp;20000|
+| :- | :-: | :- | :- | :- |
+|&emsp;ArrayTable|&emsp;26|&emsp;94|&emsp;190|&emsp;529|
+|&emsp;SortArrayTable|&emsp;178|&emsp;826|&emsp;3004|&emsp;5098|
+|&emsp;ListTable|&emsp;101|&emsp;420|&emsp;581|&emsp;1803|
+|&emsp;ListHashTable|&emsp;27|&emsp;53|&emsp;78|&emsp;175|
+|&emsp;TreeTable|&emsp;86|&emsp;420|&emsp;1516|&emsp;4091|
+|&emsp;OpenAddHashTable|&emsp;9|&emsp;9|&emsp;12|&emsp;12|
+
+   **Поиск**
+
+|&emsp;Количество элементов|&emsp;1000|&emsp;5000|&emsp;10000|&emsp;20000|
+| :- | :-: | :- | :- | :- |
+|&emsp;ArrayTable|&emsp;23|&emsp;77|&emsp;161|&emsp;301|
+|&emsp;SortArrayTable|&emsp;1|&emsp;3|&emsp;3|&emsp;4|
+|&emsp;ListTable|&emsp;28|&emsp;96|&emsp;586|&emsp;1199|
+|&emsp;ListHashTable|&emsp;16|&emsp;30|&emsp;71|&emsp;113|
+|&emsp;TreeTable|&emsp;5|&emsp;6|&emsp;10|&emsp;11|
+|&emsp;OpenAddHashTable|&emsp;6|&emsp;6|&emsp;8|&emsp;8|
+
+   Исходя из результатов экспериментов можно сделать вывод, что по времени выполнения операций для различных структур данных:
+
+:white_circle: Вставка:
+
+- Самое быстрое время вставки у хеш-таблицы с открытой адресацией и хеш-таблицы с методом цепочек, а также неупорядоченной таблицы и таблицы на списке.
+- Самое длительное время вставки у упорядоченной таблицы.
+
+:white_circle: Удаление:
+
+- Самое быстрое время удаления у хеш-таблицы с открытой адресацией.
+- Самое длительное время удаления у упорядоченной таблицы.
+
+:white_circle: Поиск:
+
+- Самое быстрое время поиска у упорядоченной таблицы, у хеш-таблицы с открытой адресацией и хеш-таблицы с методом цепочек.
+- Самое длительное время поиска у таблицы на списке и дерева.
+
+Все эти результаты почти полностью совпадают с алгоритмической сложностью операций.
